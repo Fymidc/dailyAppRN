@@ -1,5 +1,5 @@
 import { View, Text, ScrollView } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Header from '../components/Header'
 import Changer from '../components/Changer'
 import Question from '../components/Question'
@@ -8,7 +8,15 @@ import BottomBar from '../components/BottomBar'
 import { FloatingAction } from "react-native-floating-action";
 import AntDesign from 'react-native-vector-icons/AntDesign'
 
-export default function HomeScreen() {
+export default function HomeScreen({navigation}) {
+//to prevent to go splash screen when use back button
+//we can add unsaved actions and ask are u sure?
+  // useEffect(() => {
+  //   navigation.addListener('beforeRemove',(e)=>{
+  //     e.preventDefault()
+  //   })
+  // }, [navigation])
+  
 
   const action=[
     {

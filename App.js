@@ -6,6 +6,7 @@
  * @flow strict-local
  */
 
+ import 'react-native-gesture-handler';
 import React from 'react';
 import {
   Platform,
@@ -18,15 +19,37 @@ import {
   View,
 } from 'react-native';
 import HomeScreen from './screens/HomeScreen';
-
+import SplashScreen from './screens/SplashScreen';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const App = () => {
 
+ 
+  const Stack = createNativeStackNavigator();
+
+  const screenOptions = {
+    headerShown: false,
+    
+  
+}
+
+
+ 
 
   return (
-    <SafeAreaView style={styles.container} >
-      <HomeScreen />
-    </SafeAreaView>
+    <NavigationContainer>
+      <SafeAreaView style={styles.container} >
+        <Stack.Navigator  initialRouteName='Splash' screenOptions={screenOptions} >
+          <Stack.Screen   name='Splash' component={SplashScreen} />
+          <Stack.Screen options={{animation:"slide_from_right"}} name='Home' component={HomeScreen} />
+        </Stack.Navigator>
+        {/* <SplashScreen/> */}
+        {/* <HomeScreen /> */}
+
+      </SafeAreaView>
+    </NavigationContainer>
+
   );
 };
 
