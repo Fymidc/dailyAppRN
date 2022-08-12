@@ -1,36 +1,38 @@
 import { View, Text, StyleSheet, Dimensions } from 'react-native'
-import React, { useState } from 'react'
+import React, {  memo, useEffect, useState } from 'react'
 import Ionicons from "react-native-vector-icons/Ionicons"
 import Feather from 'react-native-vector-icons/Feather'
 
-export default function BottomBar() {
+const BottomBar=({navigation,route}) =>{
 
-    const [chosen, setchosen] = useState("home")
-
+    const value = route
+    const [chosen, setchosen] = useState(value)
+   
     const iconclick=(e)=>{
-        setchosen(e)
-        
-    }
-
-    console.log(chosen)
+        setchosen(route)
+        navigation.navigate(e)
+     }
+    
+   
+    
 
     return (
         <View style={styles.container} >
 
             <View style={{ padding: 18,flex:1}} >
-                <Ionicons style={styles.tabicons} onPress={()=>iconclick("home")} color={chosen == "home" ? "white" : "#484848"} name='home'  size={20} />
+                <Ionicons style={styles.tabicons} onPress={()=>iconclick("Home") } color={chosen == "Home" ? "white" : "#484848"} name='home'  size={20} />
             </View>
             <View style={{ padding: 18,flex:1 }} >
-                <Ionicons style={styles.tabicons} onPress={()=>iconclick("compass")} color={chosen == "compass" ? "white" : "#484848"} name='compass' size={20} />
+                <Ionicons style={styles.tabicons} onPress={()=>iconclick("Discovery")} color={chosen == "Discovery" ? "white" : "#484848"} name='compass' size={20} />
             </View>
             <View style={{ padding: 18,flex:1 }} >
-                <Feather style={styles.tabicons} onPress={()=>iconclick("users")} color={chosen == "users" ? "white" : "#484848"} name='users' size={20} />
+                <Feather style={styles.tabicons} onPress={()=>iconclick("Friends")} color={chosen == "Friends" ? "white" : "#484848"} name='users' size={20} />
             </View>
             <View style={{ padding: 18,flex:1}} >
-                <Ionicons style={styles.tabicons} onPress={()=>iconclick("notifications")} color={chosen == "notifications" ? "white" : "#484848"} name='notifications' size={20} />
+                <Ionicons style={styles.tabicons} onPress={()=>iconclick("Notifications")} color={chosen == "Notifications" ? "white" : "#484848"} name='notifications' size={20} />
             </View>
             <View style={{ padding: 18,flex:1 }} >
-                <Ionicons style={styles.tabicons} onPress={()=>iconclick("settings")} color={chosen == "settings" ? "white" : "#484848"} name='settings' size={20} />
+                <Ionicons style={styles.tabicons} onPress={()=>iconclick("Settings")} color={chosen == "Settings" ? "white" : "#484848"} name='settings' size={20} />
             </View>
 
         </View>
@@ -47,9 +49,12 @@ const styles = StyleSheet.create({
         width:width,
         justifyContent:"space-evenly",
         flexDirection: "row",
-        backgroundColor: "black"
+        backgroundColor: "black",
+        zIndex:20
     },
     tabicons:{
         textAlign:"center"
     }
 })
+
+export default memo(BottomBar);

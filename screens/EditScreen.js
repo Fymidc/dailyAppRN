@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, TextInput, KeyboardAvoidingView, ScrollView } f
 import React, { useState } from 'react'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 
-export default function DiaryScreen() {
+export default function EditScreen() {
 
 
   return (
@@ -15,7 +15,7 @@ export default function DiaryScreen() {
 
 
           <TextInput style={{ fontSize: 16, justifyContent: "flex-start" }} 
-          placeholder={"Tell me what happened today?"} 
+          
           autoFocus={true} multiline={true}
 
           />
@@ -35,7 +35,7 @@ const DiaryHeader = () => {
         <AntDesign name='closecircleo' size={20} />
       </View>
       <View>
-        <Text style={{ fontSize: 18, fontWeight: "800" }} >Add Diary</Text>
+        <Text style={{ fontSize: 18, fontWeight: "800" }} >Edit</Text>
 
       </View>
       <View>

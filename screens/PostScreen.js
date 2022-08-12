@@ -1,41 +1,43 @@
-import { View, Text, StyleSheet, TextInput, KeyboardAvoidingView, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, TextInput } from 'react-native'
 import React, { useState } from 'react'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 
-export default function DiaryScreen() {
+export default function PostScreen() {
 
+  
+
+  const [input, setinput] = useState("")
+
+  
+    console.log(input+input.length)
+    const remained = 60-input.length
 
   return (
     <View style={styles.maincontainer} >
-      <DiaryHeader />
+      <PotsHeader />
       <View style={{ marginTop: 12, borderBottomWidth: 1, borderBottomColor: "#EDEADE" }} />
-      <KeyboardAvoidingView  behavior='padding' keyboardVerticalOffset={60} >
-        <ScrollView  style={{ paddingHorizontal: 15 }} >
+      <View style={{ flexDirection: "column", padding: 8 }} >
+        <Text> {remained}</Text>
+      </View>
+      <View style={{ paddingHorizontal: 15 }} >
 
+        <TextInput style={{ fontSize: 16 }} onChangeText={setinput} placeholder={"Ask me.."} autoFocus={true} multiline maxLength={60} />
+      </View>
 
-
-          <TextInput style={{ fontSize: 16, justifyContent: "flex-start" }} 
-          placeholder={"Tell me what happened today?"} 
-          autoFocus={true} multiline={true}
-
-          />
-
-        </ScrollView>
-      </KeyboardAvoidingView>
 
     </View>
   )
 }
 
 
-const DiaryHeader = () => {
+const PotsHeader = () => {
   return (
     <View style={styles.container} >
       <View>
         <AntDesign name='closecircleo' size={20} />
       </View>
       <View>
-        <Text style={{ fontSize: 18, fontWeight: "800" }} >Add Diary</Text>
+        <Text style={{ fontSize: 18, fontWeight: "800" }} >Add Post</Text>
 
       </View>
       <View>

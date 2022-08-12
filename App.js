@@ -22,6 +22,10 @@ import HomeScreen from './screens/HomeScreen';
 import SplashScreen from './screens/SplashScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import DiscoveryScreen from './screens/DiscoveryScreen';
+import PostScreen from './screens/PostScreen';
+import DiaryScreen from './screens/DiaryScreen';
+import BottomBar from './components/BottomBar';
 
 const App = () => {
 
@@ -40,9 +44,14 @@ const App = () => {
   return (
     <NavigationContainer>
       <SafeAreaView style={styles.container} >
-        <Stack.Navigator  initialRouteName='Splash' screenOptions={screenOptions} >
+        <Stack.Navigator  initialRouteName='Home' screenOptions={screenOptions} >
           <Stack.Screen   name='Splash' component={SplashScreen} />
           <Stack.Screen options={{animation:"slide_from_right"}} name='Home' component={HomeScreen} />
+          <Stack.Screen  options={{animation:"none"}} name='Discovery' component={DiscoveryScreen} />
+          <Stack.Screen   name='AddPost' component={PostScreen} />
+          <Stack.Screen   name='AddDiary' component={DiaryScreen} />
+          
+        
         </Stack.Navigator>
         {/* <SplashScreen/> */}
         {/* <HomeScreen /> */}

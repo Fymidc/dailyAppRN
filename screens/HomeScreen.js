@@ -1,5 +1,5 @@
 import { View, Text, ScrollView } from 'react-native'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../components/Header'
 import Changer from '../components/Changer'
 import Question from '../components/Question'
@@ -8,7 +8,7 @@ import BottomBar from '../components/BottomBar'
 import { FloatingAction } from "react-native-floating-action";
 import AntDesign from 'react-native-vector-icons/AntDesign'
 
-export default function HomeScreen({navigation}) {
+export default function HomeScreen({navigation,route}) {
 //to prevent to go splash screen when use back button
 //we can add unsaved actions and ask are u sure?
   // useEffect(() => {
@@ -17,6 +17,12 @@ export default function HomeScreen({navigation}) {
   //   })
   // }, [navigation])
   
+  const [choosen, setchoosen] = useState("question")
+
+const handleClick=(e)=>{
+  console.log(e)
+  setchoosen(e)
+}
 
   const action=[
     {
@@ -35,20 +41,10 @@ export default function HomeScreen({navigation}) {
   return (
     <View style={{ flex: 1 }} >
       <Header />
-      <Changer />
+      <Changer route={route.name}  handleClick={handleClick} />
       <ScrollView alwaysBounceVertical={true} style={{ paddingHorizontal: 8, paddingVertical: 5 }} >
-        {/* <Question /> */}
-        <Diary />
-        <Diary />
-        <Diary />
-        <Diary />
-        <Diary />
-        <Diary />
-        <Diary />
-        <Diary />
-        <Diary />
-        <Diary />
-        <Diary />
+       {choosen == "question" ? <Question /> : choosen == "diary" ? <Diary /> : <Text>POSTLAR</Text>}
+      
 
         <View style={{ paddingBottom: 10 }} />
       
@@ -64,7 +60,7 @@ export default function HomeScreen({navigation}) {
       key={action}
       />
       </View>
-      <BottomBar />
+      <BottomBar route={route.name} navigation={navigation} />
       
     </View >
   )

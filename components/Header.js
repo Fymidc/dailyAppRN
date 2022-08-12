@@ -3,16 +3,17 @@ import React from 'react'
 import MaterialCommunityıcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 
-export default function Header() {
+export default function Header(props) {
   return (
     <View style={styles.parent} >
 
       <View style={styles.user} >
 
 
+        
         <MaterialCommunityıcons style={styles.icon} name='message-badge-outline' size={18} />
 
-        <Text style={styles.username} >Fatih</Text>
+        <Text style={styles.username} >{props.header ? props.header : "Fatih"}</Text>
 
       </View>
       <View>

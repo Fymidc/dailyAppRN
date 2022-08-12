@@ -3,12 +3,12 @@ import Ionicons from "react-native-vector-icons/Ionicons"
 import React, { useState } from 'react'
 import EvilIcons from 'react-native-vector-icons/EvilIcons'
 
-export default function Diary() {
+export default function Diary(props) {
 
     //hidden 
     const [visible, setvisible] = useState(true)
 
-    const isvisible=()=>{
+    const isvisible = () => {
         setvisible(!visible)
     }
 
@@ -24,12 +24,15 @@ export default function Diary() {
             <View style={{ flexDirection: "row", flex: 1, justifyContent: "space-between" }} >
                 <View style={styles.bottom} >
                     <Text style={styles.date} >00/00/00</Text>
-                    <EvilIcons style={styles.comment} name='comment' size={18}  />
-                    
+
                 </View>
-                <View style={{ marginRight: 25 }} >
-                <Ionicons onPress={()=>isvisible()}  name={visible ? "eye-outline" : "eye-off-outline"} size={18} color="black" />
-                   
+                <View style={{ marginRight: 25, flexDirection: "row", alignItems: "center" }} >
+                    <View style={{ flexDirection: "row", paddingHorizontal: 12,alignItems:"center" }} >
+                        <EvilIcons style={styles.comment} name='comment' size={20} />
+                        <Text>12</Text>
+                    </View>
+
+                    {props.discovery  ? <View/> : <Ionicons onPress={() => isvisible()} name={visible ? "eye-outline" : "eye-off-outline"} size={18} color="black" />}
                 </View>
             </View>
 
@@ -64,6 +67,7 @@ const styles = StyleSheet.create({
         flexDirection: "row"
     },
     comment: {
-        paddingLeft: 10
+        paddingLeft: 10,
+
     }
 })

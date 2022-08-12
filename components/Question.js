@@ -5,7 +5,7 @@ export default function Question() {
     return (
         <View style={styles.container} >
             <View style={styles.questionheader} >
-                <Text style={styles.user} >Fatih</Text>
+                
                 <Text style={styles.question} >benim soruma cevap vereceksin ibnenin evladı nasıl cevap vermessin</Text>
             </View>
             <View style={styles.bottom} >
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     container: {
         marginVertical:5,
         borderRadius:20,
-        backgroundColor: "#fffaea",
+        backgroundColor: "#f2ffff",
         overflow:"hidden"
     },
     questionheader:{
