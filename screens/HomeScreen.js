@@ -4,6 +4,7 @@ import Header from '../components/Header'
 import Changer from '../components/Changer'
 import Question from '../components/Question'
 import Diary from '../components/Diary'
+import Post from '../components/Post'
 import BottomBar from '../components/BottomBar'
 import { FloatingAction } from "react-native-floating-action";
 import AntDesign from 'react-native-vector-icons/AntDesign'
@@ -24,6 +25,15 @@ const handleClick=(e)=>{
   setchoosen(e)
 }
 
+const handleSelectedAction=(name)=>{
+  if(name=="bt_askquestion"){
+    navigation.navigate("AddPost")
+  }else if(name=="bt_adddiary"){
+    navigation.navigate("AddDiary")
+  }else{return null}
+  console.log(name)
+}
+
   const action=[
     {
       id:1,
@@ -42,8 +52,10 @@ const handleClick=(e)=>{
     <View style={{ flex: 1 }} >
       <Header />
       <Changer route={route.name}  handleClick={handleClick} />
+      <View style={{ marginTop: 12, borderBottomWidth: 1, borderBottomColor: "#EDEADE" }} />
+
       <ScrollView alwaysBounceVertical={true} style={{ paddingHorizontal: 8, paddingVertical: 5 }} >
-       {choosen == "question" ? <Question /> : choosen == "diary" ? <Diary /> : <Text>POSTLAR</Text>}
+       {choosen == "question" ? <Question /> : choosen == "diary" ? <Diary /> : <Post/>}
       
 
         <View style={{ paddingBottom: 10 }} />
@@ -55,7 +67,7 @@ const handleClick=(e)=>{
       color='black'
       actions={action}
       onPressItem={name=>{
-        console.log("selected"+name)
+        handleSelectedAction(name)
       }}
       key={action}
       />

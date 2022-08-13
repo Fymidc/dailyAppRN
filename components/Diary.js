@@ -45,7 +45,8 @@ const styles = StyleSheet.create({
         marginVertical: 5,
         borderRadius: 20,
         backgroundColor: "#f2ffff",
-        overflow: "hidden"
+        overflow: "hidden",
+        height:100
     },
     diaryheader: {
         padding: 15,
@@ -64,7 +65,8 @@ const styles = StyleSheet.create({
     },
     bottom: {
         paddingBottom: 5,
-        flexDirection: "row"
+        flexDirection: "row",
+        alignItems:"center"
     },
     comment: {
         paddingLeft: 10,

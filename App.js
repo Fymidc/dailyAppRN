@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
- import 'react-native-gesture-handler';
+import 'react-native-gesture-handler';
 import React from 'react';
 import {
   Platform,
@@ -26,32 +26,46 @@ import DiscoveryScreen from './screens/DiscoveryScreen';
 import PostScreen from './screens/PostScreen';
 import DiaryScreen from './screens/DiaryScreen';
 import BottomBar from './components/BottomBar';
+import FriendsScreen from './screens/FriendsScreen';
+import NotificationScreen from './screens/NotificationScreen';
+import SettingScreen from './screens/SettingsScreen';
+
 
 const App = () => {
 
- 
+
   const Stack = createNativeStackNavigator();
 
   const screenOptions = {
     headerShown: false,
-    
-  
-}
 
 
- 
+  }
+
+
+
 
   return (
     <NavigationContainer>
       <SafeAreaView style={styles.container} >
-        <Stack.Navigator  initialRouteName='Home' screenOptions={screenOptions} >
-          <Stack.Screen   name='Splash' component={SplashScreen} />
-          <Stack.Screen options={{animation:"slide_from_right"}} name='Home' component={HomeScreen} />
-          <Stack.Screen  options={{animation:"none"}} name='Discovery' component={DiscoveryScreen} />
-          <Stack.Screen   name='AddPost' component={PostScreen} />
-          <Stack.Screen   name='AddDiary' component={DiaryScreen} />
+        <Stack.Navigator initialRouteName='Home' screenOptions={screenOptions} >
+          <Stack.Screen name='Splash' component={SplashScreen} />
+          <Stack.Screen options={{ animation: "slide_from_right" }} name='Home' component={HomeScreen} />
+          <Stack.Screen options={{animation:"none"}} name='Discovery' component={DiscoveryScreen} />
+          <Stack.Screen options={{animation:"none"}} name='Friends' component={FriendsScreen} />
+          <Stack.Screen options={{animation:"none"}} name='Notifications' component={NotificationScreen} />
+          <Stack.Screen options={{animation:"none"}} name='Settings' component={SettingScreen} />
           
-        
+          
+          
+          
+          <Stack.Group screenOptions={{ animation:"slide_from_bottom",presentation:'modal',headerShown:false }} >
+
+            <Stack.Screen name='AddPost' component={PostScreen} />
+            <Stack.Screen name='AddDiary' component={DiaryScreen} />
+          </Stack.Group>
+
+
         </Stack.Navigator>
         {/* <SplashScreen/> */}
         {/* <HomeScreen /> */}
