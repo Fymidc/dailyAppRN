@@ -12,6 +12,9 @@ export default function Question() {
                 <Text style={styles.date} >00/00/00</Text>
             </View>
 
+            <View style={{ marginTop: 8, borderBottomWidth: 1, borderBottomColor: "#EDEADE" }} />
+
+
         </View>
     )
 }
@@ -20,7 +23,7 @@ const styles = StyleSheet.create({
     container: {
         marginVertical:5,
         borderRadius:20,
-        backgroundColor: "#f2ffff",
+       
         overflow:"hidden"
     },
     questionheader:{

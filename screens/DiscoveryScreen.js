@@ -25,13 +25,13 @@ const handleClick=(e)=>{
 }
  
   return (
-    <View style={{ flex: 1 ,backgroundColor:"#d5f4e6"}} >
+    <View style={{ flex: 1 ,backgroundColor:"#fefbe8"}} >
       <Header header={"#Discover"} />
       <Changer route={route.name} handleClick={handleClick}/>
       <View style={{ marginTop: 12, borderBottomWidth: 1, borderBottomColor: "#EDEADE" }} />
 
       <ScrollView alwaysBounceVertical={true} style={{ paddingHorizontal: 8, paddingVertical: 5 }} >
-        {choosen == "question" ? <Post /> : <Diary discovery={"true"} />}
+        {choosen == "question" ? <Post  navigation={navigation}/> : <Diary navigation={navigation} discovery={"true"} />}
         
     
         <View style={{ paddingBottom: 10 }} />

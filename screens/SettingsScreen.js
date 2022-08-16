@@ -41,6 +41,7 @@ export default function SettingScreen({ navigation, route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor:"#fefbe8"
   },
   header: {
     flexDirection: "row",
@@ -52,7 +53,8 @@ const styles = StyleSheet.create({
     
   },
   settingview:{
-    backgroundColor: "#ececec",
+    
+    backgroundColor: "#fefbd8",
     
     padding: 20,
     paddingHorizontal: 30,

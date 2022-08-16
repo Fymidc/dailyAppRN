@@ -1,15 +1,20 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
 import EvilIcons from 'react-native-vector-icons/EvilIcons'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 
-export default function Post() {
+export default function Post(props) {
+
+    const gotoDetail=()=>{
+        props.navigation.navigate('Detail')
+    }
+
     return (
         <View style={styles.container} >
-            <View style={styles.questionheader} >
+            <TouchableOpacity onPress={()=>gotoDetail()}  activeOpacity={0.6} style={styles.questionheader} >
                 <Text style={styles.user} >Fatih</Text>
                 <Text style={styles.question} >Bu benim ilk Postum merhaba nasıl hayat nasıl gidiyor </Text>
-            </View>
+            </TouchableOpacity>
 
 
             <View style={styles.bottom} >
@@ -43,7 +48,7 @@ const styles = StyleSheet.create({
     container: {
         marginVertical: 5,
         borderRadius: 20,
-        backgroundColor: "#f2ffff",
+        backgroundColor: "#fefbd8",
         overflow: "hidden",
         height: 110
     },

@@ -9,14 +9,9 @@
 import 'react-native-gesture-handler';
 import React from 'react';
 import {
-  Platform,
+  
   SafeAreaView,
-  ScrollView,
-  StatusBar,
   StyleSheet,
-  Text,
-  useColorScheme,
-  View,
 } from 'react-native';
 import HomeScreen from './screens/HomeScreen';
 import SplashScreen from './screens/SplashScreen';
@@ -25,10 +20,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import DiscoveryScreen from './screens/DiscoveryScreen';
 import PostScreen from './screens/PostScreen';
 import DiaryScreen from './screens/DiaryScreen';
-import BottomBar from './components/BottomBar';
 import FriendsScreen from './screens/FriendsScreen';
 import NotificationScreen from './screens/NotificationScreen';
 import SettingScreen from './screens/SettingsScreen';
+import DetailScreen from './screens/DetailScreen';
 
 
 const App = () => {
@@ -42,6 +37,7 @@ const App = () => {
 
   }
 
+ 
 
 
 
@@ -55,6 +51,7 @@ const App = () => {
           <Stack.Screen options={{animation:"none"}} name='Friends' component={FriendsScreen} />
           <Stack.Screen options={{animation:"none"}} name='Notifications' component={NotificationScreen} />
           <Stack.Screen options={{animation:"none"}} name='Settings' component={SettingScreen} />
+          <Stack.Screen options={{animation:"slide_from_right"}} name='Detail' component={DetailScreen} />
           
           
           

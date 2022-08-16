@@ -4,15 +4,15 @@ import React from 'react'
 export default function Friends() {
   return (
     <View style={styles.container} >
-      <Text>Friends</Text>
-      <Text>Remove</Text>
+      <Text style={styles.texts} >Friends</Text>
+      <Text style={styles.texts} >Remove</Text>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
     container:{
-        backgroundColor:"#ececec",
+        backgroundColor:"#f1e2aa",
         borderRadius:15,
         padding:20,
         paddingHorizontal:40,
@@ -20,5 +20,8 @@ const styles = StyleSheet.create({
         marginVertical:10,
         flexDirection:"row",
         justifyContent:"space-between"
+    },
+    texts:{
+      color:"black"
     }
 })

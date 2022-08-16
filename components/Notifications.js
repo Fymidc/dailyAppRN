@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
 
 export default function Notifications() {
@@ -8,16 +8,16 @@ const commented = "commented on your post  "
   console.log(text.length)
 
   return (
-    <View style={styles.container} >
+    <TouchableOpacity activeOpacity={0.6} style={styles.container} >
       <Text style={{fontWeight:"800"}} >samme</Text>
       <Text style={{paddingHorizontal:10}} >{commented + "'"+ text.slice(0,18)+ "'"+".."}</Text>
-    </View>
+    </TouchableOpacity>
   )
 }
 
 const styles = StyleSheet.create({
     container:{
-        backgroundColor:"#ececec",
+        backgroundColor:"#87bdd8",
         borderRadius:15,
         padding:20,
         paddingHorizontal:30,

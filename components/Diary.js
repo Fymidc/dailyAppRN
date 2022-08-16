@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import Ionicons from "react-native-vector-icons/Ionicons"
 import React, { useState } from 'react'
 import EvilIcons from 'react-native-vector-icons/EvilIcons'
@@ -14,8 +14,12 @@ export default function Diary(props) {
 
     const text = "fatih benim Günlüğüm lütfen okumayın içinde çok kötü şeyler var"
 
+    const gotoDetail=()=>{
+        props.navigation.navigate('Detail')
+    }
+
     return (
-        <View style={styles.container} >
+        <TouchableOpacity onPress={()=>gotoDetail()} activeOpacity={0.6} style={styles.container} >
             <View style={styles.diaryheader} >
                 <Text style={styles.user} >Fatih</Text>
                 <Text style={styles.diary} >{text.length > 18 ? text.substring(0, 45) + "..." : text}</Text>
@@ -36,7 +40,10 @@ export default function Diary(props) {
                 </View>
             </View>
 
-        </View>
+            <View style={{ marginTop: 8, borderBottomWidth: 1, borderBottomColor: "#EDEADE" }} />
+
+
+        </TouchableOpacity>
     )
 }
 
@@ -44,7 +51,7 @@ const styles = StyleSheet.create({
     container: {
         marginVertical: 5,
         borderRadius: 20,
-        backgroundColor: "#f2ffff",
+        backgroundColor: "#fefbd8",
         overflow: "hidden",
         height:100
     },
