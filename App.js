@@ -24,6 +24,8 @@ import FriendsScreen from './screens/FriendsScreen';
 import NotificationScreen from './screens/NotificationScreen';
 import SettingScreen from './screens/SettingsScreen';
 import DetailScreen from './screens/DetailScreen';
+import SignupScreen from './screens/SignupScreen';
+import LoginScreen from './screens/LoginScreen';
 
 
 const App = () => {
@@ -44,7 +46,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <SafeAreaView style={styles.container} >
-        <Stack.Navigator initialRouteName='Home' screenOptions={screenOptions} >
+        <Stack.Navigator initialRouteName='Splash' screenOptions={screenOptions} >
           <Stack.Screen name='Splash' component={SplashScreen} />
           <Stack.Screen options={{ animation: "slide_from_right" }} name='Home' component={HomeScreen} />
           <Stack.Screen options={{animation:"none"}} name='Discovery' component={DiscoveryScreen} />
@@ -52,6 +54,8 @@ const App = () => {
           <Stack.Screen options={{animation:"none"}} name='Notifications' component={NotificationScreen} />
           <Stack.Screen options={{animation:"none"}} name='Settings' component={SettingScreen} />
           <Stack.Screen options={{animation:"slide_from_right"}} name='Detail' component={DetailScreen} />
+          <Stack.Screen options={{animation:"slide_from_bottom"}} name='Signup' component={SignupScreen} />
+          <Stack.Screen options={{animation:"slide_from_bottom"}} name='Login' component={LoginScreen} />
           
           
           

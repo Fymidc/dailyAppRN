@@ -12,7 +12,7 @@ export default function Friends() {
 
 const styles = StyleSheet.create({
     container:{
-        backgroundColor:"#f1e2aa",
+        backgroundColor:"#fefbd8",
         borderRadius:15,
         padding:20,
         paddingHorizontal:40,

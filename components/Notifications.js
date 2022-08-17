@@ -15,6 +15,9 @@ const commented = "commented on your post  "
   )
 }
 
+//unread notification will be blue as we see after click on it 
+//bg color will be #fefbd8 
+
 const styles = StyleSheet.create({
     container:{
         backgroundColor:"#87bdd8",

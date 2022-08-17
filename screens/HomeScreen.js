@@ -77,12 +77,14 @@ export default function HomeScreen({ navigation, route }) {
       id: 1,
       text: "Ask Question",
       name: "bt_askquestion",
+      icon: require("../assets/plus.png"),
       position: 1
     },
     {
       id: 2,
       text: "Add Diary",
       name: "bt_adddiary",
+      icon: require("../assets/plus.png"),
       position: 2
     }
   ]
@@ -103,6 +105,7 @@ export default function HomeScreen({ navigation, route }) {
         <FloatingAction
           color='black'
           actions={action}
+          
           onPressItem={name => {
             handleSelectedAction(name)
           }}
