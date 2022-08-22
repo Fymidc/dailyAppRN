@@ -1,10 +1,28 @@
 import { View, Text, StyleSheet, TextInput, Pressable, Dimensions } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import AntDesign from 'react-native-vector-icons/AntDesign'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchAllUsers, getOneUserfromid,  } from '../reducers/UserReducer'
+
+import axios from 'axios';
 
 export default function SignupScreen({navigation}) {
+
+    
     const width = Dimensions.get('window').width
 
+    const dispatch = useDispatch();
+
+     const getAllFriends= async () =>{
+      
+       dispatch(getOneUserfromid())
+    }
+
+    const users = useSelector(user=>user.user)
+
+    console.log(users.value)
+  
+   
 
     return (
         <View style={styles.container} >
@@ -24,7 +42,7 @@ export default function SignupScreen({navigation}) {
                 </View>
 
                 <View style={{ flexDirection: "row", justifyContent: "center", marginVertical: 15 }} >
-                    <Pressable style={{backgroundColor:"#FBB827",width:width/2+width/2.5 }} >
+                    <Pressable onPress={()=>getAllFriends()} style={{backgroundColor:"#FBB827",width:width/2+width/2.5 }} >
                         <Text style={{padding:15,textAlign:"center",fontWeight:"700",color:"black"}} >Create an Account</Text>
                     </Pressable>
                 </View>

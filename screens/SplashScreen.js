@@ -1,6 +1,8 @@
 import { View, Text, StyleSheet, ImageBackground, Pressable, Dimensions } from 'react-native'
-import React, { useLayoutEffect } from 'react'
+import React, { useEffect, useLayoutEffect } from 'react'
 import MaterialCommunityıcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { useDispatch } from 'react-redux'
+import { fetchAllUsers } from '../reducers/UserReducer'
 
 export default function SplashScreen({navigation}) {
 
@@ -15,6 +17,13 @@ const gotoSignup=()=>{
 const gotoLogin=()=>{
   navigation.navigate('Login')
 }
+
+const dispatch = useDispatch()
+
+useEffect(() => {
+  dispatch(fetchAllUsers())
+}, [])
+
   return (
     <View style={styles.container} >
 
