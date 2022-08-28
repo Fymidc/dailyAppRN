@@ -7,7 +7,8 @@ import Diary from '../components/Diary'
 import Post from '../components/Post'
 import BottomBar from '../components/BottomBar'
 import { FloatingAction } from "react-native-floating-action";
-import AntDesign from 'react-native-vector-icons/AntDesign'
+import { useSelector } from 'react-redux'
+
 
 export default function HomeScreen({ navigation, route }) {
   //to prevent to go splash screen when use back button
@@ -88,14 +89,24 @@ export default function HomeScreen({ navigation, route }) {
       position: 2
     }
   ]
+
+  const posts = useSelector(post=>post.post)
+  const diaries = useSelector(diary=>diary.diary)
+
+  console.log("diaries: "+diaries.diaries)
+
   return (
     <View style={{ flex: 1,backgroundColor:"#fefbe8" }} >
       <Header />
       <Changer route={route.name} handleClick={handleClick} />
       <View style={{ marginTop: 12, borderBottomWidth: 1, borderBottomColor: "#EDEADE" }} />
 
-      <ScrollView alwaysBounceVertical={true} style={{ paddingHorizontal: 8, paddingVertical: 5 }} >
-        {choosen == "question" ? <Question /> : choosen == "diary" ? <Diary navigation={navigation} /> : <Post navigation={navigation} />}
+      <ScrollView alwaysBounceVertical={true}  bounces={true} style={{ paddingHorizontal: 8, paddingVertical: 5 }} >
+        {choosen == "question" ? <Question /> 
+        : choosen == "diary" ? 
+        diaries.diaries.map(val=> <Diary key={val.id} navigation={navigation} payload ={val} />  ) 
+        : posts.posts.map(val=> <Post key={val.id} navigation={navigation} payload={val} /> )  }
+         
 
         <View style={{ paddingBottom: 10 }} />
 

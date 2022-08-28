@@ -1,8 +1,12 @@
 import { View, Text, StyleSheet, Pressable } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { getAllPosts } from '../reducers/PostReducer';
+import { getAlldiaries } from '../reducers/DiaryReducer';
 
 export default function Changer({ handleClick, route }) {
 
+    const dispatch = useDispatch();
     const [choosen, setchoosen] = useState("question")
 
     const clicked = (e) => {
@@ -10,6 +14,18 @@ export default function Changer({ handleClick, route }) {
         setchoosen(e)
     }
 
+
+
+    // useEffect(() => {
+    //     const getHomePost = () => {
+    //         dispatch(getAllPosts())
+
+    //     }
+
+    // }, [])
+    const id =null
+    useMemo(() =>dispatch(getAllPosts(id)), [choosen])
+    useMemo(() =>dispatch(getAlldiaries(id)), [choosen])
 
     return (
         <View style={styles.container} >
@@ -24,7 +40,7 @@ export default function Changer({ handleClick, route }) {
 
             {route == "Home" ? <Pressable onPress={() => clicked("post")} style={choosen == "post" ? [styles.post, styles.clicked] : styles.post} >
                 <Text style={choosen == "post" ? [styles.text, styles.clickedtext] : styles.text}  >POST</Text>
-            </Pressable> :null}
+            </Pressable> : null}
 
 
         </View>

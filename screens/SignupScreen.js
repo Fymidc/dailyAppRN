@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, TextInput, Pressable, Dimensions } from 'react-
 import React, { useEffect } from 'react'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchAllUsers, getOneUserfromid,  } from '../reducers/UserReducer'
+import { fetchAllUsers, getOneUserfromid, loginuser,  } from '../reducers/UserReducer'
 
 import axios from 'axios';
 
@@ -13,9 +13,14 @@ export default function SignupScreen({navigation}) {
 
     const dispatch = useDispatch();
 
+    const data ={
+        userName :"fatih",
+        password : "5669141oflu"
+    }
+
      const getAllFriends= async () =>{
       
-       dispatch(getOneUserfromid())
+       dispatch(loginuser(data))
     }
 
     const users = useSelector(user=>user.user)

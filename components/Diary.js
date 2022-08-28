@@ -12,7 +12,7 @@ export default function Diary(props) {
         setvisible(!visible)
     }
 
-    const text = "fatih benim Günlüğüm lütfen okumayın içinde çok kötü şeyler var"
+    const text = props.payload.text
 
     const gotoDetail=()=>{
         props.navigation.navigate('Detail')
@@ -21,13 +21,13 @@ export default function Diary(props) {
     return (
         <TouchableOpacity onPress={()=>gotoDetail()} activeOpacity={0.6} style={styles.container} >
             <View style={styles.diaryheader} >
-                <Text style={styles.user} >Fatih</Text>
+                <Text style={styles.user} >{props.payload.username}</Text>
                 <Text style={styles.diary} >{text.length > 18 ? text.substring(0, 45) + "..." : text}</Text>
             </View>
 
             <View style={{ flexDirection: "row", flex: 1, justifyContent: "space-between" }} >
                 <View style={styles.bottom} >
-                    <Text style={styles.date} >00/00/00</Text>
+                    <Text style={styles.date} >{props.payload.date.slice(5)}</Text>
 
                 </View>
                 <View style={{ marginRight: 25, flexDirection: "row", alignItems: "center" }} >

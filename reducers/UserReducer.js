@@ -2,94 +2,147 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import axios from 'axios';
 
 
-const  initialState={
-    value:[],
-    users:[]
+const initialState = {
+    value: [],
+    users: [],
+    friends:[]
 }
-   
 
-export const fetchAllUsers = createAsyncThunk('users/fetchUsers',async ()=>{
-    const response = await axios.get('http://10.0.2.2:8080/user')
-    return response.data
+
+export const userReducer = createSlice({
+    name: 'user',
+    initialState,
+    reducers: { },
+
+    extraReducers(builder) {
+        builder.addCase(fetchAllUsers.fulfilled, (state, action) => {
+
+            return {
+                ...state.users,
+                users: action.payload
+            }
+        })
+
+        builder.addCase(getOneUserfromid.fulfilled, (state, action) => {
+
+            return {
+                ...state.value,
+                value: action.payload
+            }
+        })
+
+        builder.addCase(deleteOneUserfromid.fulfilled, (state, action) => {
+
+            return {
+                ...state.users,
+                users: state.users.filter(user => user.id !== action.payload.id)
+            }
+        })
+
+        builder.addCase(getOneUserfromname.fulfilled, (state, action) => {
+
+            return {
+                ...state.value,
+                value: action.payload
+            }
+        })
+
+        builder.addCase(getAlluserFriends.fulfilled, (state, action) => {
+
+            return {
+                ...state.friends,
+                friends: action.payload
+            }
+        })
+        
+        builder.addCase(updateOneUserfromid.fulfilled, (state, action) => {
+
+            return {
+                ...state.value,
+                value:state.value.map(val=>{
+                    if(val.id === action.payload.id){
+                        return payload;
+                    }else{
+                        return value;
+                    }
+                })
+            }
+        })
+
+        builder.addCase(loginuser.fulfilled, (state, action) => {
+
+            return {
+                ...state.value,
+                value: action.payload
+            }
+        })
+        builder.addCase(registeruser.fulfilled, (state, action) => {
+
+            return {
+                ...state.value,
+                value: action.payload
+            }
+        })
+    }
 
 })
 
-export const getOneUserfromid = createAsyncThunk('users/oneUser',async ()=>{
+export default userReducer.reducer;
+
+
+
+export const fetchAllUsers = createAsyncThunk('users/fetchUsers', async () => {
+    const response = await axios.get('http://10.0.2.2:8080/user')
+    return response.data
+    // fetchAllUsers(response)
+    
+
+})
+
+export const getOneUserfromid = createAsyncThunk('users/oneUser', async () => {
     const response = await axios.get('http://10.0.2.2:8080/user/2')
     return response.data
 
 })
 
-export const userReducer = createSlice({
-    name:'user',
-    initialState ,
-    reducers:{
-      
-      
-       updateOneUser:(state,action)=>{
-    
-        const {id,userName,password} = action.payload;
-        const existingUser = state.value.find(user=>user.id === id)
-        if(existingUser){
-            existingUser.userName = userName
-            existingUser.password = password
-        }
-        
-       },
-       getFriends:(state,action)=>{
-            state.friends = action.payload
-       },
-       loginUser:(state,action)=>{
-        state.value = action.payload
-       },
-       createOneUser:(state,action)=>{
-        state.users = action.payload
-       },
-       deleteOneUser:(state,action)=>{
-        //may not work check it later
-        state.users= state.users.filter(user=>user.id !== action.payload.id);
-       },
-       getOneUser:(state,action)=>{
-       const finded = state.users.map(u=>({...u}))
-       console.log(finded)
-       
-       console.log("id",action.payload)
-      
-    
-
-       },
-
-
-    },
-
-    extraReducers(builder){
-        builder.addCase(fetchAllUsers.fulfilled,(state,action)=>{
-           
-            return {
-                ...state.users,
-                users : action.payload
-            }
-        })
-
-        builder.addCase(getOneUserfromid.fulfilled,(state,action)=>{
-           
-            return {
-                ...state.value,
-                value : action.payload
-            }
-        })
-
-
-    }
-       
-       
-       
+export const deleteOneUserfromid = createAsyncThunk('users/deleteoneUser', async () => {
+    const response = await axios.delete('http://10.0.2.2:8080/user/2')
+    return response.data //id dönücek
 
 })
 
-export const {getOneUser,createOneUser,updateOneUser,deleteOneUser,
- loginUser,getFriends} = userReducer.actions
+export const getOneUserfromname = createAsyncThunk('users/getoneUserwname', async () => {
+    const response = await axios.get('http://10.0.2.2:8080/user/fatih')
+    return response.data //name dönücek
 
-export default userReducer.reducer;
+})
+export const updateOneUserfromid = createAsyncThunk('users/updateoneUser', async () => {
+    const response = await axios.put('http://10.0.2.2:8080/user/fatih')
+    //id dönücek
+    return response.data
+})
+
+export const getAlluserFriends = createAsyncThunk('users/getUserfriends', async () => {
+    const response = await axios.get('http://10.0.2.2:8080/user/friends/2')
+    //return response.data //id dönücek
+    return response.data
+
+})
+
+export const loginuser = createAsyncThunk('users/loginuser', async (data) => {
+    const response = await axios.post('http://10.0.2.2:8080/auth/login',data)
+    //return response.data //id dönücek
+   return response.data
+
+})
+
+export const registeruser = createAsyncThunk('users/registeruser', async () => {
+    const response = await axios.post('http://10.0.2.2:8080/auth/register')
+    //return response.data //id dönücek
+    dispatch(getAlluserFriends(response.data))
+
+})
+
+
 
 
