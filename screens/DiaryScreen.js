@@ -1,13 +1,31 @@
 import { View, Text, StyleSheet, TextInput, KeyboardAvoidingView, ScrollView } from 'react-native'
 import React, { useState } from 'react'
 import AntDesign from 'react-native-vector-icons/AntDesign'
+import { useDispatch } from 'react-redux'
+import { createOneDiary } from '../reducers/DiaryReducer';
 
-export default function DiaryScreen() {
+export default function DiaryScreen({navigation}) {
 
+  const dispatch = useDispatch();
+  const [input, setinput] = useState("")
+
+  const data = {
+    id:"",
+    text:input,
+    date:"",
+    userid:"1",
+    ishidden:"false"
+  }
+
+  const sendDiary =()=>{
+      dispatch(createOneDiary(data))
+      navigation.navigate("Home")
+
+  }
 
   return (
     <View style={styles.maincontainer} >
-      <DiaryHeader />
+      <DiaryHeader sendDiary={sendDiary} navigation={navigation} />
       <View style={{ marginTop: 12, borderBottomWidth: 1, borderBottomColor: "#EDEADE" }} />
       <KeyboardAvoidingView  behavior='padding' keyboardVerticalOffset={60} >
         <ScrollView  style={{ paddingHorizontal: 15 }} >
@@ -15,6 +33,7 @@ export default function DiaryScreen() {
 
 
           <TextInput style={{ fontSize: 16, justifyContent: "flex-start" }} 
+           onChangeText={setinput} 
           placeholder={"Tell me what happened today?"} 
           autoFocus={true} multiline={true}
 
@@ -28,18 +47,18 @@ export default function DiaryScreen() {
 }
 
 
-const DiaryHeader = () => {
+const DiaryHeader = (props) => {
   return (
     <View style={styles.container} >
       <View>
-        <AntDesign name='closecircleo' size={20} />
+        <AntDesign onPress={()=>props.navigation.goBack()} name='closecircleo' size={20} />
       </View>
       <View>
         <Text style={{ fontSize: 18, fontWeight: "800" }} >Add Diary</Text>
 
       </View>
       <View>
-        <AntDesign name='checkcircleo' size={20} />
+        <AntDesign onPress={()=>props.sendDiary()} name='checkcircleo' size={20} />
       </View>
     </View>
   )

@@ -1,21 +1,26 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Pressable } from 'react-native'
 import React from 'react'
 
-export default function Question() {
+export default function Question(props) {
+
+    const handleclick =()=>{
+        props.navigation.navigate("AnswerQuestion")
+    }
+
     return (
-        <View style={styles.container} >
+        <Pressable onPress={()=>handleclick()} style={styles.container} >
             <View style={styles.questionheader} >
                 
-                <Text style={styles.question} >benim soruma cevap vereceksin ibnenin evladı nasıl cevap vermessin</Text>
+                <Text style={styles.question} >{props.payload?.text}</Text>
             </View>
             <View style={styles.bottom} >
-                <Text style={styles.date} >00/00/00</Text>
+                <Text style={styles.date} >{props.payload?.date.slice(5)}</Text>
             </View>
 
             <View style={{ marginTop: 8, borderBottomWidth: 1, borderBottomColor: "#EDEADE" }} />
 
 
-        </View>
+        </Pressable>
     )
 }
 
@@ -23,7 +28,7 @@ const styles = StyleSheet.create({
     container: {
         marginVertical:5,
         borderRadius:20,
-       
+        backgroundColor:"white",
         overflow:"hidden"
     },
     questionheader:{
@@ -32,6 +37,7 @@ const styles = StyleSheet.create({
     },
     question:{
         paddingLeft:15,
+        color:"black"
         
         
     },

@@ -1,27 +1,49 @@
-import { View, Text, StyleSheet, TextInput } from 'react-native'
+import { View, Text, StyleSheet, TextInput, Keyboard } from 'react-native'
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import AntDesign from 'react-native-vector-icons/AntDesign'
+import { createOnePost } from '../reducers/PostReducer'
 
-export default function PostScreen() {
+export default function PostScreen({navigation}) {
 
   
-
+  const dispatch = useDispatch()
   const [input, setinput] = useState("")
 
   
-    console.log(input+input.length)
+   // console.log(input+input.length)
     const remained = 60-input.length
+
+    const data = {
+      id:"",
+      text:input,
+      date:"",
+      userid:"1"
+    }
+
+    const sendPost =()=>{
+        dispatch(createOnePost(data))
+        navigation.navigate("Home")
+
+    }
 
   return (
     <View style={styles.maincontainer} >
-      <PotsHeader />
+      <PotsHeader sendpost={sendPost} navigation={navigation} />
       <View style={{ marginTop: 12, borderBottomWidth: 1, borderBottomColor: "#EDEADE" }} />
       <View style={{ flexDirection: "column", padding: 8 }} >
         <Text> {remained}</Text>
       </View>
       <View style={{ paddingHorizontal: 15 }} >
 
-        <TextInput style={{ fontSize: 16 }} onChangeText={setinput} placeholder={"Ask me.."} autoFocus={true} multiline maxLength={60} />
+        <TextInput style={{ fontSize: 16 }}
+         onChangeText={setinput} 
+         placeholder={"Ask me.."} 
+         autoFocus={true} multiline 
+         maxLength={60} 
+      
+         
+         />
       </View>
 
 
@@ -30,18 +52,18 @@ export default function PostScreen() {
 }
 
 
-const PotsHeader = () => {
+const PotsHeader = (props) => {
   return (
     <View style={styles.container} >
       <View>
-        <AntDesign name='closecircleo' size={20} />
+        <AntDesign onPress={()=>props.navigation.goBack()} name='closecircleo' size={20} />
       </View>
       <View>
         <Text style={{ fontSize: 18, fontWeight: "800" }} >Add Post</Text>
 
       </View>
       <View>
-        <AntDesign name='checkcircleo' size={20} />
+        <AntDesign onPress={()=>props.sendpost()} name='checkcircleo' size={20} />
       </View>
     </View>
   )

@@ -17,6 +17,7 @@ import SettingScreen from '../screens/SettingsScreen';
 import DetailScreen from '../screens/DetailScreen';
 import SignupScreen from '../screens/SignupScreen';
 import LoginScreen from '../screens/LoginScreen';
+import AnswerScreen from '../screens/AnswerScreen';
 
 export default function ReactNavigator() {
 
@@ -44,13 +45,14 @@ export default function ReactNavigator() {
           <Stack.Screen options={{animation:"slide_from_right"}} name='Detail' component={DetailScreen} />
           <Stack.Screen options={{animation:"slide_from_bottom"}} name='Signup' component={SignupScreen} />
           <Stack.Screen options={{animation:"slide_from_bottom"}} name='Login' component={LoginScreen} />
-          
+          <Stack.Screen options={{animation:"slide_from_right"}} name='AnswerQuestion' component={AnswerScreen} />
           
           
           
           <Stack.Group screenOptions={{ animation:"slide_from_bottom",presentation:'modal',headerShown:false }} >
 
             <Stack.Screen name='AddPost' component={PostScreen} />
+            
             <Stack.Screen name='AddDiary' component={DiaryScreen} />
           </Stack.Group>
 

@@ -7,7 +7,11 @@ import Diary from '../components/Diary'
 import Post from '../components/Post'
 import BottomBar from '../components/BottomBar'
 import { FloatingAction } from "react-native-floating-action";
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { getAllPosts } from '../reducers/PostReducer'
+import { getAlldiaries } from '../reducers/DiaryReducer'
+import { useIsFocused } from '@react-navigation/native'
+import { getAllQuestions } from '../reducers/QuestionReducer'
 
 
 export default function HomeScreen({ navigation, route }) {
@@ -19,7 +23,8 @@ export default function HomeScreen({ navigation, route }) {
   //   })
   // }, [navigation])
 
-  const [choosen, setchoosen] = useState("question")
+  const dispatch = useDispatch();
+  const [choosen, setchoosen] = useState("post")
 
   const handleClick = (e) => {
     console.log(e)
@@ -89,23 +94,41 @@ export default function HomeScreen({ navigation, route }) {
       position: 2
     }
   ]
+  const id = null
+  const user = 1;
+  
+  const isfocused = useIsFocused();
+
+  useEffect(() => {
+    if(isfocused){
+      dispatch(getAllPosts(user)),
+    dispatch(getAlldiaries(user)),
+    dispatch(getAllQuestions(id))
+    }
+    
+  }, [isfocused]) 
+  
+ // console.log("route: "+ JSON.stringify(route))
 
   const posts = useSelector(post=>post.post)
   const diaries = useSelector(diary=>diary.diary)
+  const questions = useSelector(question=>question.question)
 
-  console.log("diaries: "+diaries.diaries)
+
+ // console.log("questions: "+Object.keys(posts.posts))
 
   return (
-    <View style={{ flex: 1,backgroundColor:"#fefbe8" }} >
+    <View style={{ flex: 1,backgroundColor:"#001935" }} >
       <Header />
       <Changer route={route.name} handleClick={handleClick} />
       <View style={{ marginTop: 12, borderBottomWidth: 1, borderBottomColor: "#EDEADE" }} />
 
       <ScrollView alwaysBounceVertical={true}  bounces={true} style={{ paddingHorizontal: 8, paddingVertical: 5 }} >
-        {choosen == "question" ? <Question /> 
+        {choosen == "question" 
+        ? questions.questions.map(val=> <Question key={val.id} navigation={navigation} payload ={val} /> )
         : choosen == "diary" ? 
-        diaries.diaries.map(val=> <Diary key={val.id} navigation={navigation} payload ={val} />  ) 
-        : posts.posts.map(val=> <Post key={val.id} navigation={navigation} payload={val} /> )  }
+        Object.values(diaries.diaries).map((val,index)=> <Diary key={index} navigation={navigation} payload ={val} />  ) 
+        : choosen == "post" ? Object.values(posts.posts).map((val,index)=> <Post key={index} navigation={navigation} payload={val} /> ) :choosen == "post"  }
          
 
         <View style={{ paddingBottom: 10 }} />

@@ -52,7 +52,7 @@ export const postReducer = createSlice({
 
             return {
                 ...state.post,
-                post:state.value.map(val=>{
+                post:state.post.map(val=>{
                     if(val.id === action.payload.id){
                         return payload;
                     }else{
@@ -83,8 +83,9 @@ export const getAllPosts = createAsyncThunk('posts/getAllPosts', async (id) => {
     
    // return response.data
    
-
 })
+
+
 
 export const getOnePostById = createAsyncThunk('posts/getOnePostById', async () => {
     const response = await axios.get('http://10.0.2.2:8080/posts/1')
@@ -98,8 +99,8 @@ export const deletePost = createAsyncThunk('posts/deletePost', async () => {
 
 })
 
-export const createOnePost = createAsyncThunk('posts/createOnePost', async () => {
-    const response = await axios.post('http://10.0.2.2:8080/posts')
+export const createOnePost = createAsyncThunk('posts/createOnePost', async (data) => {
+    const response = await axios.post('http://10.0.2.2:8080/posts',data).catch(error => console.log(error));
     return response.data //name dönücek
 
 })

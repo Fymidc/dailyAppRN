@@ -31,12 +31,16 @@ const styles = StyleSheet.create({
   user: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center"
+    alignItems: "center",
+    
   },
   username: {
     paddingLeft: 10,
     fontWeight: "800",
-    fontSize: 18
+    fontSize: 18,
+    color:"white",
+    letterSpacing:2
+    
   },
   parent: {
     flexDirection: "row",
@@ -44,7 +48,9 @@ const styles = StyleSheet.create({
 
     padding: 25,
     
-  }
-
+  },
+icon:{
+  color:"white"
+}
 
 }) 

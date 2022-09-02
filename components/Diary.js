@@ -2,14 +2,35 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import Ionicons from "react-native-vector-icons/Ionicons"
 import React, { useState } from 'react'
 import EvilIcons from 'react-native-vector-icons/EvilIcons'
+import { useDispatch } from 'react-redux'
+import { updateOneDiary } from '../reducers/DiaryReducer'
 
 export default function Diary(props) {
 
+    
+
+    const dispatch = useDispatch();
     //hidden 
     const [visible, setvisible] = useState(true)
 
+    const tdata ={
+        id:props.payload?.id,
+        ishidden:"false",
+    }
+    const fdata ={
+        id:props.payload?.id,
+        ishidden :"true"
+    }
+    // const id =  props.payload?.id
     const isvisible = () => {
+       
         setvisible(!visible)
+        if(visible === false){
+             dispatch(updateOneDiary(tdata))
+            
+        }else {
+            dispatch(updateOneDiary(fdata))
+        }
     }
 
     const text = props.payload.text
@@ -18,16 +39,17 @@ export default function Diary(props) {
         props.navigation.navigate('Detail')
     }
 
+   
     return (
         <TouchableOpacity onPress={()=>gotoDetail()} activeOpacity={0.6} style={styles.container} >
             <View style={styles.diaryheader} >
                 <Text style={styles.user} >{props.payload.username}</Text>
-                <Text style={styles.diary} >{text.length > 18 ? text.substring(0, 45) + "..." : text}</Text>
+                <Text style={styles.diary} >{text?.length > 18 ? text.substring(0, 45) + "..." : text}</Text>
             </View>
 
             <View style={{ flexDirection: "row", flex: 1, justifyContent: "space-between" }} >
                 <View style={styles.bottom} >
-                    <Text style={styles.date} >{props.payload.date.slice(5)}</Text>
+                    <Text style={styles.date} >{props.payload.date?.slice(5)}</Text>
 
                 </View>
                 <View style={{ marginRight: 25, flexDirection: "row", alignItems: "center" }} >
@@ -61,11 +83,13 @@ const styles = StyleSheet.create({
     },
     diary: {
         paddingLeft: 15,
+        color:"black"
 
 
     },
     user: {
-        fontWeight: "700"
+        fontWeight: "700",
+        color:"black"
     },
     date: {
         paddingLeft: 15

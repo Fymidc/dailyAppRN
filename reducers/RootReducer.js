@@ -4,6 +4,7 @@ import  commentReducer  from "./CommentReducer"
 import  diaryReducer  from "./DiaryReducer"
 import  likeReducer  from "./LikeReducer"
 import  postReducer from "./PostReducer"
+import  questionReducer  from "./QuestionReducer"
 import  userReducer  from "./UserReducer"
 
 
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
     answer:answerReducer,
     like:likeReducer,
     comment:commentReducer,
+    question:questionReducer
 })
 
 export default rootReducer

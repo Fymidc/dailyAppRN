@@ -8,7 +8,9 @@ import BottomBar from '../components/BottomBar'
 import { FloatingAction } from "react-native-floating-action";
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import Post from '../components/Post'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { getAllPosts } from '../reducers/PostReducer'
+import { getAlldiaries } from '../reducers/DiaryReducer'
 
 export default function DiscoveryScreen({ navigation,route }) {
   //to prevent to go splash screen when use back button
@@ -18,6 +20,7 @@ export default function DiscoveryScreen({ navigation,route }) {
   //     e.preventDefault()
   //   })
   // }, [navigation])
+  const dispatch = useDispatch();
 const [choosen, setchoosen] = useState("post")
 
 const handleClick=(e)=>{
@@ -25,6 +28,13 @@ const handleClick=(e)=>{
   setchoosen(e)
 }
 
+const id = null
+const user = 1;
+
+useEffect(() => {
+  dispatch(getAllPosts(id)),
+  dispatch(getAlldiaries(id))
+}, [])
 const posts = useSelector(post=>post.post)
   const diaries = useSelector(diary=>diary.diary)
 
@@ -37,7 +47,7 @@ const posts = useSelector(post=>post.post)
       <ScrollView alwaysBounceVertical={true} style={{ paddingHorizontal: 8, paddingVertical: 5 }} >
         {choosen == "post" 
         ?  posts.posts.map(val=> <Post key={val.id} navigation={navigation} payload={val} /> )
-        : diaries.diaries.map(val=> <Diary key={val.id} navigation={navigation} payload ={val} discovery={"true"} />  )}
+        : Object.values(diaries.diaries).map((val,index)=> <Diary key={index} navigation={navigation} payload ={val} discovery={"true"} />  )}
         
     
         <View style={{ paddingBottom: 10 }} />

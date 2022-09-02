@@ -23,7 +23,7 @@ export default function Post(props) {
             <View style={styles.bottom} >
                 <View style={{flexDirection:"row",alignItems:"center",alignItems:"center"}} >
 
-                    <Text style={styles.date} >{props.payload?.date.slice(5)}</Text>
+                    <Text style={styles.date} >{props.payload.date?.slice(5)}</Text>
                 </View>
                 <View style={{ flexDirection: "row",alignItems:"center", paddingHorizontal:10,justifyContent: "flex-end", width: 180 }} >
                     <View style={{ flexDirection: "row" }} >
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     container: {
         marginVertical: 5,
         borderRadius: 20,
-        backgroundColor: "#fefbd8",
+        backgroundColor: "#ffff",
         overflow: "hidden",
         height: 110
     },
@@ -58,11 +58,13 @@ const styles = StyleSheet.create({
     },
     question: {
         paddingHorizontal: 15,
+        color:"black"
 
 
     },
     user: {
-        fontWeight: "700"
+        fontWeight: "700",
+        color:"black"
     },
     date: {
         paddingLeft: 15,
