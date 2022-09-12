@@ -12,12 +12,11 @@ import DiscoveryScreen from '../screens/DiscoveryScreen';
 import PostScreen from '../screens/PostScreen';
 import DiaryScreen from '../screens/DiaryScreen';
 import FriendsScreen from '../screens/FriendsScreen';
-import NotificationScreen from '../screens/NotificationScreen';
-import SettingScreen from '../screens/SettingsScreen';
 import DetailScreen from '../screens/DetailScreen';
 import SignupScreen from '../screens/SignupScreen';
 import LoginScreen from '../screens/LoginScreen';
 import AnswerScreen from '../screens/AnswerScreen';
+import UserScreen from '../screens/UserScreen';
 
 export default function ReactNavigator() {
 
@@ -40,12 +39,11 @@ export default function ReactNavigator() {
           <Stack.Screen options={{ animation: "slide_from_right" }} name='Home' component={HomeScreen} />
           <Stack.Screen options={{animation:"none"}} name='Discovery' component={DiscoveryScreen} />
           <Stack.Screen options={{animation:"none"}} name='Friends' component={FriendsScreen} />
-          <Stack.Screen options={{animation:"none"}} name='Notifications' component={NotificationScreen} />
-          <Stack.Screen options={{animation:"none"}} name='Settings' component={SettingScreen} />
           <Stack.Screen options={{animation:"slide_from_right"}} name='Detail' component={DetailScreen} />
           <Stack.Screen options={{animation:"slide_from_bottom"}} name='Signup' component={SignupScreen} />
           <Stack.Screen options={{animation:"slide_from_bottom"}} name='Login' component={LoginScreen} />
           <Stack.Screen options={{animation:"slide_from_right"}} name='AnswerQuestion' component={AnswerScreen} />
+          <Stack.Screen options={{animation:"slide_from_right"}} name='UserScreen' component={UserScreen} />
           
           
           

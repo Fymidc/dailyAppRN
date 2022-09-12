@@ -1,32 +1,62 @@
 import { View, Text, StyleSheet, TextInput } from 'react-native'
 import React, { useState } from 'react'
 import AntDesign from 'react-native-vector-icons/AntDesign'
+import { useDispatch, useSelector } from 'react-redux';
 
-export default function AnswerScreen({navigation}) {
+export default function AnswerScreen({ navigation, route }) {
 
-  
+  const dispatch = useDispatch();
+  const { text ,id} = route.params;
 
   const [input, setinput] = useState("")
 
-  
-    console.log(input+input.length)
-    const remained = 60-input.length
+
+  //console.log(input+input.length)
+  const remained = 60 - input.length
+
+  const answer = useSelector(answer => answer.answer)
+
+  const data = {
+    id: "",
+    text: "yes",
+    date: "",
+    ishidden: "true",
+    userid: 2,
+    questionid: id
+  }
+
+  //create answer tamamla
+
+  const createOneAnswer = () => {
+    dispatch(createOneAnswer(data))
+    navigation.goBack();
+  }
 
   return (
     <View style={styles.maincontainer} >
-      <PotsHeader navigation={navigation} />
+      <PotsHeader navigation={navigation} create={createOneAnswer}/>
       <View style={{ marginTop: 12, borderBottomWidth: 1, borderBottomColor: "#EDEADE" }} />
-      <View style={{ flexDirection: "column", padding: 8 }} >
-        <Text> {remained}</Text>
+
+      {answer.answer.length > 0 ? null
+        : <View style={{ flexDirection: "column", padding: 8 }} >
+          <Text> {remained}</Text>
+        </View>}
+
+
+      <View style={{ padding: 15 }}>
+        <Text style={{ color: "black" }} >{text}</Text>
       </View>
-      <View style={{padding:15}}>
-        <Text style={{color:"black"}} >sadklsnad sad  sadıuhsa ljd slkajd sad bsajd sasajb lksad sds adh sads akdbl sajbkd?</Text>
-      </View>
+
 
 
       <View style={{ paddingHorizontal: 15 }} >
-
-        <TextInput style={{ fontSize: 16 }} onChangeText={setinput} placeholder={"Ask me.."} autoFocus={true} multiline maxLength={60} />
+        {answer.answer?.length > 0
+          ? answer.answer.map(val => <View key={val.id} style={{ flexDirection: "row" }} >
+            <Text>{val.date?.slice(5)}</Text>
+            <Text style={{ paddingLeft: 10 }} >{val.text}</Text>
+          </View>)
+          : <TextInput style={{ fontSize: 16 }} onChangeText={setinput} placeholder={"Ask me.."} autoFocus={true} multiline maxLength={60} />
+        }
       </View>
 
 
@@ -35,18 +65,18 @@ export default function AnswerScreen({navigation}) {
 }
 
 
-const PotsHeader = ({navigation}) => {
+const PotsHeader = ({ navigation ,create}) => {
   return (
     <View style={styles.container} >
       <View>
-        <AntDesign onPress={()=>navigation.goBack()} name='closecircleo' size={20} />
+        <AntDesign onPress={() => navigation.goBack()} name='closecircleo' size={20} />
       </View>
       <View>
         <Text style={{ fontSize: 18, fontWeight: "800" }} >What do you think?</Text>
 
       </View>
       <View>
-        <AntDesign name='checkcircleo' size={20} />
+        <AntDesign onPress={() => create()} name='checkcircleo' size={20} />
       </View>
     </View>
   )

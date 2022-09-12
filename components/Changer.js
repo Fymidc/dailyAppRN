@@ -58,6 +58,9 @@ export default function Changer({ handleClick, route }) {
             {route == "Home" ? <Pressable onPress={() => clicked("post")} style={choosen == "post" ? [styles.post, styles.clicked] : styles.post} >
                 <Text style={choosen == "post" ? [styles.text, styles.clickedtext] : styles.text}  >POST</Text>
             </Pressable> : null}
+            {route == "UserScreen" ? <Pressable onPress={() => clicked("post")} style={choosen == "post" ? [styles.post, styles.clicked] : styles.post} >
+                <Text style={choosen == "post" ? [styles.text, styles.clickedtext] : styles.text}  >POST</Text>
+            </Pressable> : null}
 
 
         </View>

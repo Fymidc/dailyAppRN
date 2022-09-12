@@ -1,10 +1,21 @@
 import { View, Text, StyleSheet, Pressable } from 'react-native'
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { getOneAnswerById } from '../reducers/AnswerReducer'
 
 export default function Question(props) {
 
+    const dispatch = useDispatch()
+
+    const data ={
+        userid:1,
+        questionid:props.payload?.id
+    }
     const handleclick =()=>{
-        props.navigation.navigate("AnswerQuestion")
+        dispatch(getOneAnswerById(data))
+        props.navigation.navigate("AnswerQuestion",{text:props.payload?.text,
+                                                id:props.payload?.id})
+
     }
 
     return (

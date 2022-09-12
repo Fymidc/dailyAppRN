@@ -11,6 +11,7 @@ import Post from '../components/Post'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllPosts } from '../reducers/PostReducer'
 import { getAlldiaries } from '../reducers/DiaryReducer'
+import { getAllLikes } from '../reducers/LikeReducer'
 
 export default function DiscoveryScreen({ navigation,route }) {
   //to prevent to go splash screen when use back button
@@ -34,12 +35,13 @@ const user = 1;
 useEffect(() => {
   dispatch(getAllPosts(id)),
   dispatch(getAlldiaries(id))
+
 }, [])
 const posts = useSelector(post=>post.post)
   const diaries = useSelector(diary=>diary.diary)
 
   return (
-    <View style={{ flex: 1 ,backgroundColor:"#fefbe8"}} >
+    <View style={{ flex: 1 ,backgroundColor:"#001935"}} >
       <Header header={"#Discover"} />
       <Changer route={route.name} handleClick={handleClick}/>
       <View style={{ marginTop: 12, borderBottomWidth: 1, borderBottomColor: "#EDEADE" }} />

@@ -4,19 +4,26 @@ import axios from 'axios';
 
 const initialState = {
     diaries: [],
-    diary:[]
+    diary: [],
+    loading: false
 }
 
 
 export const diaryReducer = createSlice({
     name: 'diary',
     initialState,
-    reducers: { },
+    reducers: {},
 
     extraReducers(builder) {
+        builder.addCase(getAlldiaries.pending, (state, action) => {
+
+            state.loading = true
+        })
         builder.addCase(getAlldiaries.fulfilled, (state, action) => {
 
             return {
+                ...state.loading,
+                loading:false,
                 ...state.diaries,
                 diaries: action.payload
             }
@@ -45,23 +52,23 @@ export const diaryReducer = createSlice({
             }
         })
 
-        
-        
+
+
         builder.addCase(updateOneDiary.fulfilled, (state, action) => {
 
             return {
                 ...state.diaries,
-                diaries:state.diaries.map(val=>{
-                    if(val.id === action.payload.id){
+                diaries: state.diaries.map(val => {
+                    if (val.id === action.payload.id) {
                         return action.payload;
-                    }else{
+                    } else {
                         return val
                     }
                 })
             }
         })
 
-       
+
     }
 
 })
@@ -71,15 +78,15 @@ export default diaryReducer.reducer;
 
 
 export const getAlldiaries = createAsyncThunk('diaries/getAlldiaries', async (id) => {
-    if(id !== null){
+    if (id !== null) {
         const response = await axios.get(`http://10.0.2.2:8080/diaries?userid=${id}`)
         return response.data
-    }else {
+    } else {
         const response = await axios.get(`http://10.0.2.2:8080/diaries`)
         return response.data
     }
-    
-    
+
+
 
 })
 
@@ -96,22 +103,22 @@ export const deleteDiary = createAsyncThunk('diaries/deleteDiary', async () => {
 })
 
 export const createOneDiary = createAsyncThunk('diaries/createOneDiary', async (data) => {
-    const response = await axios.post('http://10.0.2.2:8080/diaries',data).catch(error => console.log(error));
+    const response = await axios.post('http://10.0.2.2:8080/diaries', data).catch(error => console.log(error));
     return response.data //name dönücek
 
 })
 export const updateOneDiary = createAsyncThunk('diaries/updateOneDiary', async (data) => {
-   
-   
-   const id =data.id
-   const ndata = {
-    ishidden:data.ishidden
-   }
 
-    const response = await axios.put(`http://10.0.2.2:8080/diaries/${id}`,ndata).catch(error =>console.log(error))
- 
-    
-    return  response.data
+
+    const id = data.id
+    const ndata = {
+        ishidden: data.ishidden
+    }
+
+    const response = await axios.put(`http://10.0.2.2:8080/diaries/${id}`, ndata).catch(error => console.log(error))
+
+
+    return response.data
 })
 
 

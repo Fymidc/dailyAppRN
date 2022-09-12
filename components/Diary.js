@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import EvilIcons from 'react-native-vector-icons/EvilIcons'
 import { useDispatch } from 'react-redux'
 import { updateOneDiary } from '../reducers/DiaryReducer'
+import { getAllCommentsDiary } from '../reducers/CommentReducer'
 
 export default function Diary(props) {
 
@@ -35,15 +36,19 @@ export default function Diary(props) {
 
     const text = props.payload.text
 
-    const gotoDetail=()=>{
-        props.navigation.navigate('Detail')
+    const gotoDetail=(id)=>{
+        dispatch(getAllCommentsDiary(id))
+        props.navigation.navigate('Detail',{ username : props.payload?.username,
+            text :props.payload?.text,
+                id:props.payload?.id,
+                ishidden:props.payload?.ishidden})
     }
 
    
     return (
-        <TouchableOpacity onPress={()=>gotoDetail()} activeOpacity={0.6} style={styles.container} >
+        <TouchableOpacity onPress={()=>gotoDetail(props.payload?.id)} activeOpacity={0.6} style={styles.container} >
             <View style={styles.diaryheader} >
-                <Text style={styles.user} >{props.payload.username}</Text>
+                <Text style={styles.user} >{props.payload?.username}</Text>
                 <Text style={styles.diary} >{text?.length > 18 ? text.substring(0, 45) + "..." : text}</Text>
             </View>
 
@@ -55,7 +60,7 @@ export default function Diary(props) {
                 <View style={{ marginRight: 25, flexDirection: "row", alignItems: "center" }} >
                     <View style={{ flexDirection: "row", paddingHorizontal: 12,alignItems:"center" }} >
                         <EvilIcons style={styles.comment} name='comment' size={20} />
-                        <Text>12</Text>
+                        <Text>{props.payload?.commentAmount}</Text>
                     </View>
 
                     {props.discovery  ? <View/> : <Ionicons onPress={() => isvisible()} name={visible ? "eye-outline" : "eye-off-outline"} size={18} color="black" />}

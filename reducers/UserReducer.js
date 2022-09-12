@@ -5,14 +5,15 @@ import axios from 'axios';
 const initialState = {
     value: [],
     users: [],
-    friends:[]
+    friends: [],
+    loading:false
 }
 
 
 export const userReducer = createSlice({
     name: 'user',
     initialState,
-    reducers: { },
+    reducers: {},
 
     extraReducers(builder) {
         builder.addCase(fetchAllUsers.fulfilled, (state, action) => {
@@ -46,23 +47,45 @@ export const userReducer = createSlice({
                 value: action.payload
             }
         })
+        builder.addCase(getAlluserFriends.pending, (state, action) => {
+
+            state.loading =true;
+            
+        })
+
 
         builder.addCase(getAlluserFriends.fulfilled, (state, action) => {
 
+           
+            state.friends = action.payload
+            state.loading = false
+            
+        })
+        builder.addCase(addFriends.fulfilled, (state, action) => {
+            return{
+                ...state.friends,
+
+                friends : action.payload
+            }
+            
+        })
+        builder.addCase(removefriends.fulfilled, (state, action) => {
+
             return {
                 ...state.friends,
-                friends: action.payload
+                friends: state.friends.filter(user => user.id !== action.payload.id)
             }
+            
         })
-        
+
         builder.addCase(updateOneUserfromid.fulfilled, (state, action) => {
 
             return {
                 ...state.value,
-                value:state.value.map(val=>{
-                    if(val.id === action.payload.id){
+                value: state.value.map(val => {
+                    if (val.id === action.payload.id) {
                         return payload;
-                    }else{
+                    } else {
                         return value;
                     }
                 })
@@ -95,7 +118,7 @@ export const fetchAllUsers = createAsyncThunk('users/fetchUsers', async () => {
     const response = await axios.get('http://10.0.2.2:8080/user')
     return response.data
     // fetchAllUsers(response)
-    
+
 
 })
 
@@ -122,17 +145,39 @@ export const updateOneUserfromid = createAsyncThunk('users/updateoneUser', async
     return response.data
 })
 
-export const getAlluserFriends = createAsyncThunk('users/getUserfriends', async () => {
-    const response = await axios.get('http://10.0.2.2:8080/user/friends/2')
+export const getAlluserFriends = createAsyncThunk('users/getUserfriends', async (data) => {
+   
+    const id = data.userid
+   
+    const response = await axios.get(`http://10.0.2.2:8080/user/friends/${id}`)
+    //return response.data //id dönücek
+    return response.data
+
+})
+export const addFriends = createAsyncThunk('users/addFriends', async (data) => {
+
+    const userid = data.userid;
+    const friendsid = data.friendsid;
+
+    const response = await axios.get(`http://10.0.2.2:8080/user/friends/add?userid=${userid}&friendsid=${friendsid}`)
+    //return response.data //id dönücek
+    return response.data
+
+})
+export const removefriends = createAsyncThunk('users/removefriends', async (data) => {
+    const userid = data.userid;
+    const friendsid = data.friendsid;
+    const response = await axios.get(`http://10.0.2.2:8080/user/friends/delete?userid=${userid}&friendsid=${friendsid}`)
     //return response.data //id dönücek
     return response.data
 
 })
 
+
 export const loginuser = createAsyncThunk('users/loginuser', async (data) => {
-    const response = await axios.post('http://10.0.2.2:8080/auth/login',data)
+    const response = await axios.post('http://10.0.2.2:8080/auth/login', data)
     //return response.data //id dönücek
-   return response.data
+    return response.data
 
 })
 

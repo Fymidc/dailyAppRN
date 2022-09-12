@@ -51,8 +51,10 @@ export default answerReducer.reducer;
 
 
 
-export const getOneAnswerById = createAsyncThunk('answer/getOnePostById', async () => {
-    const response = await axios.get('http://10.0.2.2:8080/answers/1')
+export const getOneAnswerById = createAsyncThunk('answer/getOnePostById', async (data) => {
+    const userid = data.userid;
+    const questionid = data.questionid;
+    const response = await axios.get(`http://10.0.2.2:8080/answers/user?userid=${userid}&questionid=${questionid}`)
     return response.data
 
 })
@@ -63,8 +65,8 @@ export const deleteAnswer = createAsyncThunk('answer/deletePost', async () => {
 
 })
 
-export const createOneAnswers = createAsyncThunk('answer/createOnePost', async () => {
-    const response = await axios.post('http://10.0.2.2:8080/answers')
+export const createOneAnswers = createAsyncThunk('answer/createOnePost', async (data) => {
+    const response = await axios.post('http://10.0.2.2:8080/answers',data)
     return response.data //name dönücek
 
 })

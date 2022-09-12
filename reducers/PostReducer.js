@@ -4,7 +4,8 @@ import axios from 'axios';
 
 const initialState = {
     posts: [],
-    post:[]
+    post:[],
+    loading:false
 }
 
 
@@ -14,9 +15,16 @@ export const postReducer = createSlice({
     reducers: { },
 
     extraReducers(builder) {
+        builder.addCase(getAllPosts.pending, (state, action) => {
+
+            state.loading = true
+        })
         builder.addCase(getAllPosts.fulfilled, (state, action) => {
 
             return {
+                ...state.loading,
+                loading:false,
+                
                 ...state.posts,
                 posts: action.payload
             }
@@ -25,8 +33,8 @@ export const postReducer = createSlice({
         builder.addCase(getOnePostById.fulfilled, (state, action) => {
 
             return {
-                ...state.post,
-                post: action.payload
+                ...state.posts,
+                posts: action.payload
             }
         })
 
@@ -87,8 +95,8 @@ export const getAllPosts = createAsyncThunk('posts/getAllPosts', async (id) => {
 
 
 
-export const getOnePostById = createAsyncThunk('posts/getOnePostById', async () => {
-    const response = await axios.get('http://10.0.2.2:8080/posts/1')
+export const getOnePostById = createAsyncThunk('posts/getOnePostById', async (id) => {
+    const response = await axios.get(`http://10.0.2.2:8080/posts/${id}`)
     return response.data
 
 })
