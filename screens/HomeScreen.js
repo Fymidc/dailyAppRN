@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, BackHandler, Alert } from 'react-native'
+import { View, ScrollView, BackHandler } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Header from '../components/Header'
 import Changer from '../components/Changer'
@@ -10,20 +10,19 @@ import { FloatingAction } from "react-native-floating-action";
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllPosts } from '../reducers/PostReducer'
 import { getAlldiaries } from '../reducers/DiaryReducer'
-import { useIsFocused } from '@react-navigation/native'
-import { getAllQuestions, getAllQuestionsByUserId } from '../reducers/QuestionReducer'
-import { createOneLike, deleteOneLike, getAllLikes } from '../reducers/LikeReducer'
+import {  useIsFocused } from '@react-navigation/native'
+import { getAllQuestionsByUserId } from '../reducers/QuestionReducer'
+import { getAllLikes } from '../reducers/LikeReducer'
 import { useRef } from 'react'
+import Loading from '../components/Loading'
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 export default function HomeScreen({ navigation, route }) {
   //to prevent to go splash screen when use back button
   //we can add unsaved actions and ask are u sure?
-  // useEffect(() => {
-  //   navigation.addListener('beforeRemove',(e)=>{
-  //     e.preventDefault()
-  //   })
-  // }, [navigation])
 
   const dispatch = useDispatch();
   const [choosen, setchoosen] = useState("post")
@@ -43,7 +42,8 @@ export default function HomeScreen({ navigation, route }) {
   }
 
   const [exitApp, setExitApp] = useState(0);
-  const [length, setLength] = useState("");
+  const [user, setuser] = useState(null);
+  const [userName, setuserName] = useState(null);
 
 
 
@@ -67,18 +67,19 @@ export default function HomeScreen({ navigation, route }) {
     return true;
   }
 
-
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', () => {
-      if (route.name === "Home") {
+      if (isfocused === true) {
+        
         backAction()
-      }
+      }else{
 
-      try {
-
-        navigation.goBack()
-      } catch (error) {
-        console.log(error)
+        try {
+          console.log("try çalıştı")
+          navigation.goBack()
+        } catch (error) {
+          console.log(error)
+        }
       }
 
       return () => BackHandler.removeEventListener("hardwareBackPress")
@@ -105,115 +106,69 @@ export default function HomeScreen({ navigation, route }) {
       position: 2
     }
   ]
+
+
+  const getUserData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('Current_User')
+      const namevalue = await AsyncStorage.getItem('Current_User_Name')
+      if (value !== null && namevalue !== null) {
+        setuser(value)
+        setuserName(namevalue)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+
   const id = null
-  const user = 1;
+  //const user = 1;
+  console.log("homeden gelen user ", user)
 
   const isfocused = useIsFocused();
 
 
   const data = {
-    userid: 1,
+    userid: user,
 
   }
   useEffect(() => {
-    if (isfocused) {
+    getUserData()
+    console.log("useeffecten gelen val ", user)
+
+    if (isfocused && user != null) {
+      console.log("useeffecten gelen val2 ", user)
+
       dispatch(getAllPosts(user)),
         dispatch(getAlldiaries(user)),
         dispatch(getAllQuestionsByUserId(user))
-    
 
     }
-  dispatch(getAllLikes(data))
-  }, [isfocused])
 
-
-  
-  
-  const [plike, setplike] = useState(null)
-  //like idsi değişmiyor 
-
-
-
-
-  
+    dispatch(getAllLikes(data))
+  }, [isfocused, user])
 
 
 
   const ulikes = useRef(likes.like?.length)
   ulikes.current = likes.like?.length
 
-  
-
-//screen deki like lerın sayısı güncellenmiyor ve icon değişimleri
-
-  // const likeAction = (id) => {
-  //   setIsLiked(!liked)
-  //   setplike(id)
-  //   const ldata = {
-  //     id: "",
-  //     userid: 1,
-  //     postid: id
-  //   }
-
-  //   console.log(id)
-  //   const data = {
-  //     userid: 1,
-  //     postid: id
-  //   }
-
-
-  //   console.log("id", pliked.current)
-  //   //console.log("likes", ulikes)
-  //   dispatch(getAllLikes(data)).then(() => {
-  //     if (!liked) {
-  //       //console.log("create")
-  //       dispatch(createOneLike(ldata))
-  //     }
-  //     else {
-  //       //console.log("delete")
-
-  //       dispatch(deleteOneLike(pliked.curren))
-  //     }
-
-  //   })
-
-
-  // }
-  // useEffect(() => {
-
-
-  //   console.log("çalıştı")
-
-  //   const likeControl = likes.like?.find(like => like.userId === 1)
-  //   if (likeControl != null) {
-  //     setLikeId(likeControl.id);
-  //     //console.log("homedan gelen ", likeControl.id)
-  //     setIsLiked(true)
-  //   }
-
-  // }, [likes])
-
-
-
-
-
-
-
-
-
+  const amount = [
+    1, 2, 3
+  ]
 
   return (
     <View style={{ flex: 1, backgroundColor: "#001935" }} >
-      <Header />
+      <Header username={userName} />
       <Changer route={route.name} handleClick={handleClick} />
       <View style={{ marginTop: 12, borderBottomWidth: 1, borderBottomColor: "#EDEADE" }} />
 
       <ScrollView alwaysBounceVertical={true} bounces={true} style={{ paddingHorizontal: 8, paddingVertical: 5 }} >
-        {choosen == "question"
-          ? questions.questions.map(val => <Question key={val.id} navigation={navigation} payload={val} />)
-          : choosen == "diary" ?
-            Object.values(diaries.diaries).map((val, index) => <Diary key={index} navigation={navigation} payload={val} />)
-            : choosen == "post" ? posts.loading === true ? <Text>Loading...</Text> : Object.values(posts.posts).map((val, index) => <Post key={index} navigation={navigation} payload={val} likes={likes.like}  />) : choosen == "post"}
+        {choosen == "diary" ?
+            diaries.loading === true ? amount.map(a => <Loading key={a} />)
+              : Object.values(diaries.diaries).map((val, index) => <Diary key={index} navigation={navigation} payload={val} />)
+            : choosen == "post" ? posts.loading === true ? amount.map(a => <Loading key={a} />) : Object.values(posts.posts).map((val, index) => <Post key={index} navigation={navigation} payload={val} likes={likes.like} />) : choosen == "post"}
 
 
         <View style={{ paddingBottom: 10 }} />

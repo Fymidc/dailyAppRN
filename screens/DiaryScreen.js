@@ -1,19 +1,22 @@
 import { View, Text, StyleSheet, TextInput, KeyboardAvoidingView, ScrollView } from 'react-native'
 import React, { useState } from 'react'
 import AntDesign from 'react-native-vector-icons/AntDesign'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { createOneDiary } from '../reducers/DiaryReducer';
+
 
 export default function DiaryScreen({navigation}) {
 
   const dispatch = useDispatch();
   const [input, setinput] = useState("")
+ const users = useSelector(user=>user.user)
+
 
   const data = {
     id:"",
     text:input,
     date:"",
-    userid:"1",
+    userid:users.token?.userId,
     ishidden:"false"
   }
 

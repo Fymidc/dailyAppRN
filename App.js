@@ -9,20 +9,25 @@
 import 'react-native-gesture-handler';
 import React, { useEffect } from 'react';
 
-import { Provider, useDispatch } from 'react-redux';
-import { store } from './store';
+import {  useDispatch } from 'react-redux';
+
 import ReactNavigator from './utils/ReactNavigator';
-import { fetchAllUsers } from './reducers/UserReducer';
+import { getMainUserfromid } from './reducers/UserReducer';
+
 
 
 const App = () => {
- 
-  
+  const dispatch = useDispatch()
+  const id = 1 // is gonna change after auth
+  useEffect(() => {
+    dispatch(getMainUserfromid(id))
+  }, [])
+
 
   return (
-    <Provider store={store} >
-      <ReactNavigator />
-    </Provider>
+
+    <ReactNavigator />
+
   );
 };
 

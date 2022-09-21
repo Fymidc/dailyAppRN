@@ -1,14 +1,18 @@
 import { View, Text, StyleSheet, Pressable } from 'react-native'
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getOneAnswerById } from '../reducers/AnswerReducer'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 export default function Question(props) {
 
     const dispatch = useDispatch()
+    const users = useSelector(user=>user.user)
+
 
     const data ={
-        userid:1,
+        userid:2,
         questionid:props.payload?.id
     }
     const handleclick =()=>{

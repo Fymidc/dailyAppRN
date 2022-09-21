@@ -79,10 +79,10 @@ export default diaryReducer.reducer;
 
 export const getAlldiaries = createAsyncThunk('diaries/getAlldiaries', async (id) => {
     if (id !== null) {
-        const response = await axios.get(`http://10.0.2.2:8080/diaries?userid=${id}`)
+        const response = await axios.get(`https://diary-apps.herokuapp.com/diaries?userid=${id}`)
         return response.data
     } else {
-        const response = await axios.get(`http://10.0.2.2:8080/diaries`)
+        const response = await axios.get(`https://diary-apps.herokuapp.com/diaries`)
         return response.data
     }
 
@@ -91,19 +91,19 @@ export const getAlldiaries = createAsyncThunk('diaries/getAlldiaries', async (id
 })
 
 export const getOneDiaryById = createAsyncThunk('diaries/getOneDiaryById', async () => {
-    const response = await axios.get('http://10.0.2.2:8080/diaries/1')
+    const response = await axios.get('https://diary-apps.herokuapp.com/diaries/1')
     return response.data
 
 })
 
 export const deleteDiary = createAsyncThunk('diaries/deleteDiary', async () => {
-    const response = await axios.delete('http://10.0.2.2:8080/diaries/2')
+    const response = await axios.delete('https://diary-apps.herokuapp.com/diaries/2')
     return response.data //id dönücek
 
 })
 
 export const createOneDiary = createAsyncThunk('diaries/createOneDiary', async (data) => {
-    const response = await axios.post('http://10.0.2.2:8080/diaries', data).catch(error => console.log(error));
+    const response = await axios.post('https://diary-apps.herokuapp.com/diaries', data).catch(error => console.log(error));
     return response.data //name dönücek
 
 })
@@ -115,7 +115,7 @@ export const updateOneDiary = createAsyncThunk('diaries/updateOneDiary', async (
         ishidden: data.ishidden
     }
 
-    const response = await axios.put(`http://10.0.2.2:8080/diaries/${id}`, ndata).catch(error => console.log(error))
+    const response = await axios.put(`https://diary-apps.herokuapp.com/diaries/${id}`, ndata).catch(error => console.log(error))
 
 
     return response.data

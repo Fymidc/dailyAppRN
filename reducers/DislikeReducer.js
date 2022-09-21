@@ -52,19 +52,19 @@ export default dislikeReducer.reducer;
 
 
 export const getAllDislikes = createAsyncThunk('dislike/getOnePostById', async () => {
-    const response = await axios.get('http://10.0.2.2:8080/dislikes/1')
+    const response = await axios.get('https://diary-apps.herokuapp.com/dislikes/1')
     return response.data
 
 })
 
 export const deleteOneDislike = createAsyncThunk('dislike/deletePost', async () => {
-    const response = await axios.delete('http://10.0.2.2:8080/dislikes/2')
+    const response = await axios.delete('https://diary-apps.herokuapp.com/dislikes/2')
     return response.data //id dönücek
 
 })
 
 export const createOneDislike = createAsyncThunk('dislike/createOnePost', async () => {
-    const response = await axios.post('http://10.0.2.2:8080/dislikes')
+    const response = await axios.post('https://diary-apps.herokuapp.com/dislikes')
     return response.data //name dönücek
 
 })

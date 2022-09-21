@@ -1,16 +1,18 @@
-import { View, Text, StyleSheet, TextInput, Keyboard } from 'react-native'
+import { View, Text, StyleSheet, TextInput } from 'react-native'
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import { createOnePost } from '../reducers/PostReducer'
+
+
 
 export default function PostScreen({navigation}) {
 
   
   const dispatch = useDispatch()
   const [input, setinput] = useState("")
+  const users = useSelector(user=>user.user)
 
-  
    // console.log(input+input.length)
     const remained = 60-input.length
 
@@ -18,7 +20,7 @@ export default function PostScreen({navigation}) {
       id:"",
       text:input,
       date:"",
-      userid:"1"
+      userid:users.token?.userId
     }
 
     const sendPost =()=>{

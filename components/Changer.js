@@ -15,29 +15,12 @@ export default function Changer({ handleClick, route }) {
         setchoosen(e)
     }
 
-   // console.log("choosen sec : " + choosen)
+
 
     const id = null
     const user = 1;
 
-    // useEffect(() => {
-    //     dispatch(getAllPosts())
-
-        
-
-    // }, [])
    
-    // useMemo(() =>dispatch(getAllPosts(id)), [choosen])
-    //useMemo(() =>dispatch(getAlldiaries(id)), [choosen])
-    // useMemo(() => dispatch(getAllQuestions(id)), [choosen])
-
-    // if (route == 'Home') {
-    //     useMemo(() => dispatch(getAllPosts(user)), [route, choosen])
-    //     useMemo(() => dispatch(getAlldiaries(user)), [route, choosen])
-    // } else if (route == 'Discovery') {
-    //     useMemo(() => dispatch(getAllPosts(id)), [route, choosen])
-    //     useMemo(() => dispatch(getAlldiaries(id)), [route, choosen])
-    // }
 
     return (
         <View style={styles.container} >
@@ -46,11 +29,6 @@ export default function Changer({ handleClick, route }) {
                 <Text style={choosen == "post" ? [styles.text, styles.clickedtext] : styles.text}  >POST</Text>
             </Pressable> : null}
 
-            {route == "Home" ?<Pressable onPress={() => clicked("question")} style={choosen == "question" ? [styles.question, styles.clicked] : styles.question} >
-                <Text style={choosen == "question" ? [styles.text, styles.clickedtext] : styles.text} >QUESTİONS</Text>
-
-            </Pressable> : null }
-            
             <Pressable onPress={() => clicked("diary")} style={choosen == "diary" ? [styles.diary, styles.clicked] : styles.diary} >
                 <Text style={choosen == "diary" ? [styles.text, styles.clickedtext] : styles.text}  >DİARY</Text>
             </Pressable>

@@ -1,23 +1,14 @@
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import BottomBar from '../components/BottomBar'
 import Friends from '../components/Friends'
-import { getAlluserFriends } from '../reducers/UserReducer'
-import { useEffect } from 'react'
+
 
 export default function FriendsScreen({navigation,route}) {
-    const dispatch = useDispatch();
-
-    const data ={
-        userid:1 //auth sornası düzelt
-    }
-    
-    useEffect(() => {
-      dispatch(getAlluserFriends(data))
-    }, [])
-    
-   const users = useSelector(user=>user.user)
+ 
+        
+        const users = useSelector(user=>user.user)
   
     return (
         <View style={styles.container} >

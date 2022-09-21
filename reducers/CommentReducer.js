@@ -99,7 +99,7 @@ export default commentReducer.reducer;
 
 
 export const getAllCommentsPost = createAsyncThunk('comments/getAllcommentsPost', async (id) => {
-    const response = await axios.get(`http://10.0.2.2:8080/comments?postid=${id}`)
+    const response = await axios.get(`https://diary-apps.herokuapp.com/comments?postid=${id}`)
     return response.data
     // fetchAllUsers(response)
     
@@ -107,7 +107,7 @@ export const getAllCommentsPost = createAsyncThunk('comments/getAllcommentsPost'
 })
 
 export const getAllCommentsDiary = createAsyncThunk('comments/getAllcommentsDiary', async (id) => {
-    const response = await axios.get(`http://10.0.2.2:8080/comments/diary?diaryid=${id}`)
+    const response = await axios.get(`https://diary-apps.herokuapp.com/comments/diary?diaryid=${id}`)
     return response.data
     // fetchAllUsers(response)
     
@@ -115,7 +115,7 @@ export const getAllCommentsDiary = createAsyncThunk('comments/getAllcommentsDiar
 })
 
 export const deleteOneComment = createAsyncThunk('comments/deleteComment', async () => {
-    const response = await axios.delete('http://10.0.2.2:8080/comments/2')
+    const response = await axios.delete('https://diary-apps.herokuapp.com/comments/2')
     return response.data //id dönücek
 
 })
@@ -131,7 +131,7 @@ export const createOnePostComment = createAsyncThunk('comments/createOnePostComm
         userid:data.userid
     }
     
-    const response = await axios.post(`http://10.0.2.2:8080/comments?postid=${id}`,ndata).catch(error => console.log(error))
+    const response = await axios.post(`https://diary-apps.herokuapp.com/comments?postid=${id}`,ndata).catch(error => console.log(error))
     return response.data //name dönücek
 
 })
@@ -147,13 +147,13 @@ export const createOneDiaryComment = createAsyncThunk('comments/createOneDiaryCo
     }
     
     
-    const response = await axios.post(`http://10.0.2.2:8080/comments?diaryid=${id}`,ndata)
+    const response = await axios.post(`https://diary-apps.herokuapp.com/comments?diaryid=${id}`,ndata)
     return response.data //name dönücek
 
 })
 
 export const updateOneComment = createAsyncThunk('comments/updateOneComment', async () => {
-    const response = await axios.put('http://10.0.2.2:8080/comments/1')
+    const response = await axios.put('https://diary-apps.herokuapp.com/comments/1')
     //id dönücek
     return response.data
 })

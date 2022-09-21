@@ -54,19 +54,19 @@ export default answerReducer.reducer;
 export const getOneAnswerById = createAsyncThunk('answer/getOnePostById', async (data) => {
     const userid = data.userid;
     const questionid = data.questionid;
-    const response = await axios.get(`http://10.0.2.2:8080/answers/user?userid=${userid}&questionid=${questionid}`)
+    const response = await axios.get(`https://diary-apps.herokuapp.com/answers/user?userid=${userid}&questionid=${questionid}`)
     return response.data
 
 })
 
 export const deleteAnswer = createAsyncThunk('answer/deletePost', async () => {
-    const response = await axios.delete('http://10.0.2.2:8080/answers/2')
+    const response = await axios.delete('https://diary-apps.herokuapp.com/answers/2')
     return response.data //id dönücek
 
 })
 
 export const createOneAnswers = createAsyncThunk('answer/createOnePost', async (data) => {
-    const response = await axios.post('http://10.0.2.2:8080/answers',data)
+    const response = await axios.post('https://diary-apps.herokuapp.com/answers',data)
     return response.data //name dönücek
 
 })

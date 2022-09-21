@@ -4,6 +4,8 @@ import MaterialCommunityıcons from 'react-native-vector-icons/MaterialCommunity
 import AntDesign from 'react-native-vector-icons/AntDesign'
 
 export default function Header(props) {
+  const route = props.route
+  console.log(route)
   return (
     <View style={styles.parent} >
 
@@ -13,7 +15,7 @@ export default function Header(props) {
         
         <MaterialCommunityıcons style={styles.icon} name='message-badge-outline' size={18} />
 
-        <Text style={styles.username} >{props.header ? props.header : "Fatih"}</Text>
+        <Text style={styles.username} >{route === 'Discovery' ? "Discover" : props.username}</Text>
 
       </View>
       <View>

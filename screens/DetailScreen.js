@@ -1,12 +1,12 @@
-import { View, Text, StyleSheet, TextInput, KeyboardAvoidingView, ScrollView, Modal, Alert, Pressable, Dimensions, Keyboard } from 'react-native'
+import { View, Text, StyleSheet, TextInput, ScrollView, Modal, Alert, Pressable, Dimensions, Keyboard } from 'react-native'
 import React, { useState } from 'react'
 import AntDesign from 'react-native-vector-icons/AntDesign'
-import Ionicons from 'react-native-vector-icons/Ionicons'
 import MaterialCommunityıcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { useDispatch, useSelector } from 'react-redux';
 import Comment from '../components/Comment';
 import { createOneDiaryComment, createOnePostComment, getAllCommentsDiary, getAllCommentsPost } from '../reducers/CommentReducer'
-import { useEffect } from 'react'
+
+const height = Dimensions.get('window').height
 
 export default function DetailScreen({ navigation, route }) {
 
@@ -15,17 +15,19 @@ export default function DetailScreen({ navigation, route }) {
   const [input, setInput] = useState("");
 
   const pcomments = useSelector(comment => comment.comment)
-  // console.log("comments:",pcomments.comment)
+  const users = useSelector(user=>user.user)
+  
 
   const { username, text, id ,ishidden} = route.params;
+
   
-  console.log("ishidden ",ishidden === undefined)
+
 
   const pdata = {
     id: "",
     text: input,
     date: "",
-    userid: 1, //login den sonra bu id auth olan kişi olarak düzenlenecek
+    userid: users.token?.userId,
     postid: id
   }
 
@@ -33,7 +35,7 @@ export default function DetailScreen({ navigation, route }) {
     id: "",
     text: input,
     date: "",
-    userid: 1, //login den sonra bu id auth olan kişi olarak düzenlenecek
+    userid: users.token?.userId, 
     diaryid: id
   }
 
@@ -200,7 +202,7 @@ const DeleteModal = (props) => {
 }
 
 
-const height = Dimensions.get('window').height
+
 
 console.log(height / 2)
 

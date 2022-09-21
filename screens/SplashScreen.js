@@ -1,15 +1,34 @@
 import { View, Text, StyleSheet, ImageBackground, Pressable, Dimensions } from 'react-native'
-import React, { useEffect, useLayoutEffect } from 'react'
+import React from 'react'
 import MaterialCommunityıcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import { useDispatch } from 'react-redux'
-import { fetchAllUsers } from '../reducers/UserReducer'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useState } from 'react';
+import { useEffect } from 'react';
+
+const width = Dimensions.get('window').width
 
 export default function SplashScreen({navigation}) {
 
-//this make screen navigatie automatically
-//   setTimeout(() => {
-//     navigation.navigate('Home'); //this.props.navigation.navigate('Login')
-// }, 3700);
+  const [user, setuser] = useState(null)
+
+  const  getUserData =async ()=>{
+    try {
+      const value = await AsyncStorage.getItem('Current_User')
+      
+      if(value !== null  ) {
+        setuser(value)
+       
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  getUserData();
+
+
+  console.log("splashdan gelen",user)
+
 const gotoSignup=()=>{
   navigation.navigate('Signup')
 }
@@ -18,19 +37,21 @@ const gotoLogin=()=>{
   navigation.navigate('Login')
 }
 
-const dispatch = useDispatch()
-
 useEffect(() => {
-  dispatch(fetchAllUsers())
-}, [])
+  if(user !== null){
+    navigation.navigate('Login')
+  }
+}, [user])
+
+
 
   return (
     <View style={styles.container} >
 
       <ImageBackground style={styles.image}
-        source={require('../assets/pencilbg.jpg')}
+        source={require('../assets/newbg.jpeg')}
         resizeMode="cover"
-        blurRadius={5}
+        
         
       >
         <View style={styles.subcontainer} >
@@ -41,7 +62,7 @@ useEffect(() => {
             <Text style={styles.maintext} >MySecret</Text>
           </View>
           <View style={styles.quotecontainer} >
-            <Text style={styles.subtext} >"Kontrol edemediğin şeyler için endişelenmeyi bırak. Hayatını yaşa."</Text>
+            <Text style={styles.subtext} >"Stop worrying about the things you can't control."</Text>
             
            
           </View>
@@ -53,7 +74,7 @@ useEffect(() => {
           </View>
           <View style={{flexDirection:"row",justifyContent:"center"}} >
             <Pressable onPress={()=>gotoLogin()} >
-              <Text style={{color:"grey"}} >I Already Have An Account</Text>
+              <Text style={{color:"white"}} >I Already Have An Account</Text>
             </Pressable>
           </View>
 
@@ -66,7 +87,7 @@ useEffect(() => {
   )
 }
 
-const width = Dimensions.get('window').width
+
 
 const styles = StyleSheet.create({
   container: {

@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import { useDispatch, useSelector } from 'react-redux';
 
+
 export default function AnswerScreen({ navigation, route }) {
 
   const dispatch = useDispatch();
@@ -15,17 +16,18 @@ export default function AnswerScreen({ navigation, route }) {
   const remained = 60 - input.length
 
   const answer = useSelector(answer => answer.answer)
+  const users = useSelector(user=>user.user)
 
   const data = {
     id: "",
     text: "yes",
     date: "",
     ishidden: "true",
-    userid: 2,
+    userid: users.token?.userId,
     questionid: id
   }
 
-  //create answer tamamla
+
 
   const createOneAnswer = () => {
     dispatch(createOneAnswer(data))

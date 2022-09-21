@@ -82,10 +82,10 @@ export default postReducer.reducer;
 export const getAllPosts = createAsyncThunk('posts/getAllPosts', async (id) => {
    
     if(id !== null){
-        const response = await axios.get(`http://10.0.2.2:8080/posts?userid=${id}`)
+        const response = await axios.get(`https://diary-apps.herokuapp.com/posts?userid=${id}`)
         return response.data
     }else {
-        const response = await axios.get(`http://10.0.2.2:8080/posts`)
+        const response = await axios.get(`https://diary-apps.herokuapp.com/posts`)
         return response.data
     }
     
@@ -96,24 +96,24 @@ export const getAllPosts = createAsyncThunk('posts/getAllPosts', async (id) => {
 
 
 export const getOnePostById = createAsyncThunk('posts/getOnePostById', async (id) => {
-    const response = await axios.get(`http://10.0.2.2:8080/posts/${id}`)
+    const response = await axios.get(`https://diary-apps.herokuapp.com/posts/${id}`)
     return response.data
 
 })
 
 export const deletePost = createAsyncThunk('posts/deletePost', async () => {
-    const response = await axios.delete('http://10.0.2.2:8080/posts/2')
+    const response = await axios.delete('https://diary-apps.herokuapp.com/posts/2')
     return response.data //id dönücek
 
 })
 
 export const createOnePost = createAsyncThunk('posts/createOnePost', async (data) => {
-    const response = await axios.post('http://10.0.2.2:8080/posts',data).catch(error => console.log(error));
+    const response = await axios.post('https://diary-apps.herokuapp.com/posts',data).catch(error => console.log(error));
     return response.data //name dönücek
 
 })
 export const updateOnePost = createAsyncThunk('posts/updateOnePost', async () => {
-    const response = await axios.put('http://10.0.2.2:8080/posts/1')
+    const response = await axios.put('https://diary-apps.herokuapp.com/posts/1')
     //id dönücek
     return response.data
 })

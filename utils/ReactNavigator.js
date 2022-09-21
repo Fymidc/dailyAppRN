@@ -30,11 +30,11 @@ export default function ReactNavigator() {
   }
 
 
-
+ 
   return (
     <NavigationContainer>
       <SafeAreaView style={styles.container} >
-        <Stack.Navigator initialRouteName='Home' screenOptions={screenOptions} >
+        <Stack.Navigator initialRouteName='Splash' screenOptions={screenOptions} >
           <Stack.Screen name='Splash' component={SplashScreen} />
           <Stack.Screen options={{ animation: "slide_from_right" }} name='Home' component={HomeScreen} />
           <Stack.Screen options={{animation:"none"}} name='Discovery' component={DiscoveryScreen} />

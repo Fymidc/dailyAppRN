@@ -72,13 +72,13 @@ export const getAllLikes = createAsyncThunk('like/getAllLikes', async (data) => 
     
     if(userid && postid){
 
-        const response = await axios.get(`http://10.0.2.2:8080/likes?userid=${userid}&postid=${postid}`)
+        const response = await axios.get(`https://diary-apps.herokuapp.com/likes?userid=${userid}&postid=${postid}`)
         return response.data
     }else if(userid) {
-        const response = await axios.get(`http://10.0.2.2:8080/likes?userid=${userid}`)
+        const response = await axios.get(`https://diary-apps.herokuapp.com/likes?userid=${userid}`)
         return response.data
     }else{
-        const response = await axios.get(`http://10.0.2.2:8080/likes`)
+        const response = await axios.get(`https://diary-apps.herokuapp.com/likes`)
         return response.data
     }
 
@@ -86,15 +86,15 @@ export const getAllLikes = createAsyncThunk('like/getAllLikes', async (data) => 
 })
 
 export const deleteOneLike = createAsyncThunk('like/deleteOneLike', async (id) => {
-   //console.log("delete çalıştı") 
-    const response = await axios.delete(`http://10.0.2.2:8080/likes/${id}`)
+   //console.log("delete like reducer",id) 
+    const response = await axios.delete(`https://diary-apps.herokuapp.com/likes/${id}`)
     return response.data //id dönücek
 
 })
 
 export const createOneLike = createAsyncThunk('like/createOneLike', async (data) => {
     //console.log("create çalıştı")
-    const response = await axios.post('http://10.0.2.2:8080/likes',data)
+    const response = await axios.post('https://diary-apps.herokuapp.com/likes',data)
     return response.data //name dönücek
     
 })
