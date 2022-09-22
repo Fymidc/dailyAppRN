@@ -55,8 +55,8 @@ const BottomBar = ({ navigation, route }) => {
                 closeOnPressMask={true}
                 animationType="slide"
 
-                openDuration={800}
-                closeDuration={500}
+                openDuration={500}
+                closeDuration={200}
                 customStyles={{
                     wrapper: {
                         backgroundColor: "rgba(0, 0, 0,0.1)"

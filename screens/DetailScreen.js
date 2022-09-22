@@ -18,7 +18,7 @@ export default function DetailScreen({ navigation, route }) {
   const users = useSelector(user=>user.user)
   
 
-  const { username, text, id ,ishidden} = route.params;
+  const { username, text, id ,ishidden,userid} = route.params;
 
   
 
@@ -67,7 +67,7 @@ export default function DetailScreen({ navigation, route }) {
 
   return (
     <View style={styles.maincontainer} >
-      <DetailHeader openModal={openModal} userid={id} username={username} navigation={navigation} />
+      <DetailHeader openModal={openModal} userid={userid} mainuser={users.token?.userId} username={username} navigation={navigation} />
       <View style={{ marginTop: 12, borderBottomWidth: 1, borderBottomColor: "#EDEADE" }} />
 
       <View style={{ flex: 1 }} >
@@ -146,7 +146,7 @@ const DetailHeader = (props) => {
 
       </View>
       <View>
-        <AntDesign onPress={() => props.userid === 1 ? props.openModal() : goBack()} style={styles.icon} name='closecircleo' size={20} />
+        <AntDesign onPress={() => props.userid === props.mainuser ? props.openModal() : goBack()} style={styles.icon} name='closecircleo' size={20} />
       </View>
 
     </View>

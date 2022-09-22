@@ -3,10 +3,11 @@ import React, { useState } from 'react'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import { useDispatch, useSelector } from 'react-redux'
 import { createOneDiary } from '../reducers/DiaryReducer';
+import { useRef } from 'react';
 
 
 export default function DiaryScreen({navigation}) {
-
+  const scrollViewRef = useRef();
   const dispatch = useDispatch();
   const [input, setinput] = useState("")
  const users = useSelector(user=>user.user)
@@ -30,8 +31,10 @@ export default function DiaryScreen({navigation}) {
     <View style={styles.maincontainer} >
       <DiaryHeader sendDiary={sendDiary} navigation={navigation} />
       <View style={{ marginTop: 12, borderBottomWidth: 1, borderBottomColor: "#EDEADE" }} />
-      <KeyboardAvoidingView  behavior='padding' keyboardVerticalOffset={60} >
-        <ScrollView  style={{ paddingHorizontal: 15 }} >
+      <KeyboardAvoidingView  behavior='padding' keyboardVerticalOffset={90} >
+        <ScrollView ref={scrollViewRef}
+         onContentSizeChange={()=>scrollViewRef.current.scrollToEnd({animated:true})} 
+         style={{ paddingHorizontal: 15 }} >
 
 
 

@@ -59,7 +59,7 @@ useEffect(() => {
           <View style={styles.brandcontainer} >
 
             <MaterialCommunityıcons color="white" style={styles.icon} name='message-badge-outline' size={50} />
-            <Text style={styles.maintext} >MySecret</Text>
+            <Text style={styles.maintext} >My Diary</Text>
           </View>
           <View style={styles.quotecontainer} >
             <Text style={styles.subtext} >"Stop worrying about the things you can't control."</Text>

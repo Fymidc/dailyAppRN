@@ -46,7 +46,8 @@ export default function Post(props) {
         props.navigation.navigate('Detail', {
             username: props.payload?.username,
             text: props.payload?.text,
-            id: props.payload?.id
+            id: props.payload?.id,
+            userid:props.payload?.userId
         })
     }
 
