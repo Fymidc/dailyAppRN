@@ -7,9 +7,9 @@
 - App allow you to follow users, you can follow your favorite writer.
 
 
-## Google Play Store :(incelemede güncellenecek.)
+## Google Play Store :
 
-[![Get it on Google Play]
+[![Get it on Google Play](https://play.google.com/intl/en_us/badges/images/badge_new.png)](https://play.google.com/store/apps/details?id=com.fymidcdailyapp)
 
 Screenshots of the app :
 ![repoimg](https://user-images.githubusercontent.com/60707082/191954836-5a2e5d37-7c30-4174-b478-b4d3ee62d071.jpg)
